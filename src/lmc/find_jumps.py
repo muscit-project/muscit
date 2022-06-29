@@ -12,11 +12,12 @@ from trajec_io import readwrite
 from lmc.prepare_lmc import Settings, AnalysisHelper, boolean_string
 
 def main():
-        logging.basicConfig(filename='create_jump_mat_li.log',  level=logging.DEBUG)
-        logging.debug('command line:')
-        logging.debug(sys.argv)
+#        logging.basicConfig(filename='misp.log', level=logging.DEBUG)
+#        logging.debug('command line:')
+        readwrite.start_logging()
+        logging.info(sys.argv)
         #logging.debug(readwrite.get_git_version())
-        logging.debug(readwrite.log_git_version())
+        #logging.debug(readwrite.log_git_version())
         #print("command line:")
         #print(sys.argv)
         #readwrite.get_git_version()
