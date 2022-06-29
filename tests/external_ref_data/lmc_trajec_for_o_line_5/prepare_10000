@@ -1,0 +1,55 @@
+#!/bin/bash  
+#/home/dressler/projects/mim_oac_trajec_kirchner/mim_oac/qian_neu/travis_NtoO
+
+
+#/net/shared/dressler/proton/mim_oac/mim_oac_dressler/mim_oac/hou-ion
+#pre1="/net/shared/dressler/proton/mim_oac/mim_oac_dressler/mim_oac/"
+#pre1="/net/shared/dressler/proton/mim_oac_copy2/mim_oac/"
+#pre1="/net/shared/dressler/proton/mim_oac/mim_oac_dressler/processed_trajecs/1/"
+#mid1="/travis_NtoO/"
+#end1="-pos-1.xyz"
+
+#pre1="/home/dressler/projects/mim_oac_trajec_kirchner/mim_oac/"
+#mid1="/travis_NtoO/"
+#end1="-pos-1_out.xyz"
+#for arg1 in 10 100 1000 ; do
+for arg1 in 10000 ; do
+#for arg1 in  1000000 ; do
+        echo $arg1
+        #echo $pre1$arg1$mid1$arg1$end1
+        #echo $pre1$arg1/$arg1$end1
+        mkdir $arg1
+        cd $arg1
+        #ln -s $pre1$arg1$mid1$arg1$end1
+        #reduce_trajec hou-ion-pos-1.xyz pbc True nowrap 10 every_10th_hou-ion-pos-1.xyz > reduce.out
+        #cp ../extract_important_atoms.py .
+        #python extract_important_atoms.py  every_10th_$arg1$end1 > extract_important.out
+        #echo "python extract_important_atoms.py  every_10th_"$arg1$end1" > extract_important.out" >> command
+        #reduce_trajec $arg1$end1 pbc True nowrap 10 every_10th_$arg1$end1 > reduce.out
+        #echo "reduce_trajec"$arg1$end1" pbc True nowrap 10 every_10th_"$arg1$end1" > reduce.out" >> command 
+        touch commands
+        #ln -s $pre1$arg1/important_every_10th_$arg1$end1
+        #cp $pre1$arg1/pbc .
+        cp ../pbc .
+	#cp ../o_25.xyz .
+	cp ../o_line.xyz .
+	cp ../fermi_param_OO .
+	create_propagation_matrix o_line.xyz  pbc  False nowrap O > create_prop.out
+	echo "create_propagation_matrix o_line.xyz  pbc  False nowrap O > create_prop.out" >> commands
+        #misp o_400.xyz pbc  False nowrap O 5 1 10 100 lmc.out 100 1 True --write_xyz --verbose --seed 12349999
+        misp o_line.xyz  pbc  False nowrap O 2 1 10 $arg1 lmc.out $arg1 1 True --write_xyz --verbose --seed 12349999 > misp.out 
+	#echo "misp o_line.xyz pbc  False nowrap O 5 1 10 "$arg1" lmc.out "$arg1" 1 True --write_xyz --verbose --seed 12349999 > misp.out" >> commands
+	echo "misp o_line.xyz pbc  False nowrap O 2 1 10 "$arg1" lmc.out "$arg1" 1 True --write_xyz --verbose --seed 12349999 > misp.out" >> commands
+        #cp $pre1$arg1/cell .
+        #cp ../convert_cell_to_pbc.py .
+        #python convert_cell_to_pbc.py
+        #var=$( cat cell )
+        #cp ../../store_jumprate_v1/$arg1/fit.out .
+        #echo "jumpstat jumpprobs $arg1$end1 $var   > out.out"  
+        #echo "jumpstat jumpprobs $arg1$end1 $var   > out.out"  > command1
+        #jumpstat jumpprobs $arg1$end1 $var   > out.out
+        cd ..
+        #head $pre1$arg1$mid1$arg1$end1
+        #cat $pre1$arg1/cell
+done
+

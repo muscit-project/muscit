@@ -1,0 +1,6 @@
+create_propagation_matrix o_line_five.xyz  pbc  False nowrap O > create_prop.out
+misp o_line_five.xyz pbc  False nowrap O 4 1 10 1000 lmc.out 1000 1 True --write_xyz --verbose --seed 12349999 > misp.out
+create_propagation_matrix o_line_five.xyz  pbc  False nowrap O > create_prop.out
+misp o_line_five.xyz pbc  False nowrap O 4 1 10 1000 lmc.out 1000 1 True --write_xyz --verbose --seed 12349999 > misp.out
+create_propagation_matrix o_line_five.xyz  pbc  False nowrap O > create_prop.out
+misp o_line_five.xyz pbc  False nowrap O 4 1 10 1000 lmc.out 1000 1 True --write_xyz --verbose --seed 12349999 > misp.out

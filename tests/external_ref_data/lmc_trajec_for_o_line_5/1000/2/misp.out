@@ -1,0 +1,3012 @@
+# Hello. I am from commit 414fb90a538591bf23f04485f116e27c1f24a11c
+# Commit Date: Tue May 10 10:41:42 2022 +0200
+# Commit Message: Merge branch 'master' into short_time_develop_master_christian
+auxiliary file o_line_five.xyz.npz  exists
+--- 0.0032775402069091797 seconds ---
+Trajectory will be neither wrapped nor unwrapped.
+[0 1 2 0 0]  in print step
+[1 2]  proton indices
+[0 1 2 0 0]
+0  /  1000[0 1 2 0 0]  in print step
+[1 2]  proton indices
+[0 1 2 0 0]
+[0 1 2 0 0]  in print step
+[1 2]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 2 0 0]
+[0 1 2 0 0]  in print step
+[1 2]  proton indices
+[0 1 2 0 0]
+[0 1 2 0 0]  in print step
+[1 2]  proton indices
+[0 1 2 0 0]
+[0 1 2 0 0]  in print step
+[1 2]  proton indices
+[0 1 2 0 0]
+[0 1 2 0 0]  in print step
+[1 2]  proton indices
+[0 1 2 0 0]
+[0 1 2 0 0]  in print step
+[1 2]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 2 0 0]
+[0 1 2 0 0]  in print step
+[1 2]  proton indices
+[0 1 2 0 0]
+[0 1 2 0 0]  in print step
+[1 2]  proton indices
+[0 1 2 0 0]
+[0 1 2 0 0]  in print step
+[1 2]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 0 2 0 1]
+100  /  1000[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 1 0]
+[0 0 2 1 0]  in print step
+[3 2]  proton indices
+[0 0 2 1 0]
+[0 0 2 1 0]  in print step
+[3 2]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[0 0 0 1 2]
+[0 0 0 1 2]  in print step
+[3 4]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[2 0 0 0 1]
+200  /  1000[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[1 2 0 0 0]
+[1 2 0 0 0]  in print step
+[0 1]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[1 2 0 0 0]
+[1 2 0 0 0]  in print step
+[0 1]  proton indices
+[1 2 0 0 0]
+[1 2 0 0 0]  in print step
+[0 1]  proton indices
+[1 2 0 0 0]
+[1 2 0 0 0]  in print step
+[0 1]  proton indices
+[1 2 0 0 0]
+[1 2 0 0 0]  in print step
+[0 1]  proton indices
+[1 2 0 0 0]
+[1 2 0 0 0]  in print step
+[0 1]  proton indices
+[1 2 0 0 0]
+[1 2 0 0 0]  in print step
+[0 1]  proton indices
+[1 2 0 0 0]
+[1 2 0 0 0]  in print step
+[0 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[0 0 0 1 2]
+[0 0 0 1 2]  in print step
+[3 4]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 0 2 1 0]
+[0 0 2 1 0]  in print step
+[3 2]  proton indices
+[0 0 2 1 0]
+[0 0 2 1 0]  in print step
+[3 2]  proton indices
+[0 0 2 1 0]
+[0 0 2 1 0]  in print step
+[3 2]  proton indices
+[0 0 2 1 0]
+[0 0 2 1 0]  in print step
+[3 2]  proton indices
+[0 0 2 1 0]
+[0 0 2 1 0]  in print step
+[3 2]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[0 0 0 1 2]
+[0 0 0 1 2]  in print step
+[3 4]  proton indices
+[0 0 0 1 2]
+[0 0 0 1 2]  in print step
+[3 4]  proton indices
+[0 0 0 1 2]
+[0 0 0 1 2]  in print step
+[3 4]  proton indices
+[0 0 0 1 2]
+[0 0 0 1 2]  in print step
+[3 4]  proton indices
+[0 0 0 1 2]
+[0 0 0 1 2]  in print step
+[3 4]  proton indices
+[0 0 0 1 2]
+[0 0 0 1 2]  in print step
+[3 4]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+300  /  1000[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 0 1 2]
+[0 0 0 1 2]  in print step
+[3 4]  proton indices
+[0 0 0 1 2]
+[0 0 0 1 2]  in print step
+[3 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 0 2 1 0]
+[0 0 2 1 0]  in print step
+[3 2]  proton indices
+[0 0 2 1 0]
+[0 0 2 1 0]  in print step
+[3 2]  proton indices
+[0 0 2 1 0]
+[0 0 2 1 0]  in print step
+[3 2]  proton indices
+[0 0 2 1 0]
+[0 0 2 1 0]  in print step
+[3 2]  proton indices
+[0 0 2 1 0]
+[0 0 2 1 0]  in print step
+[3 2]  proton indices
+[0 0 2 1 0]
+[0 0 2 1 0]  in print step
+[3 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 1 0]
+[0 0 2 1 0]  in print step
+[3 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[1 0 2 0 0]
+400  /  1000[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 2 0 0]
+[0 1 2 0 0]  in print step
+[1 2]  proton indices
+[0 1 2 0 0]
+[0 1 2 0 0]  in print step
+[1 2]  proton indices
+[0 1 2 0 0]
+[0 1 2 0 0]  in print step
+[1 2]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 1 0]
+[0 0 2 1 0]  in print step
+[3 2]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 0 2 1 0]
+[0 0 2 1 0]  in print step
+[3 2]  proton indices
+[0 0 2 1 0]
+[0 0 2 1 0]  in print step
+[3 2]  proton indices
+[0 0 2 1 0]
+[0 0 2 1 0]  in print step
+[3 2]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+500  /  1000[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[0 0 0 1 2]
+[0 0 0 1 2]  in print step
+[3 4]  proton indices
+[0 0 0 1 2]
+[0 0 0 1 2]  in print step
+[3 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 2 0 0]
+[0 1 2 0 0]  in print step
+[1 2]  proton indices
+[0 1 2 0 0]
+600  /  1000[0 1 2 0 0]  in print step
+[1 2]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[0 0 0 1 2]
+[0 0 0 1 2]  in print step
+[3 4]  proton indices
+[0 0 0 1 2]
+[0 0 0 1 2]  in print step
+[3 4]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 0 1 2]
+[0 0 0 1 2]  in print step
+[3 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 0 1 2]
+[0 0 0 1 2]  in print step
+[3 4]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[0 0 0 1 2]
+[0 0 0 1 2]  in print step
+[3 4]  proton indices
+[0 0 0 1 2]
+[0 0 0 1 2]  in print step
+[3 4]  proton indices
+[0 0 0 1 2]
+[0 0 0 1 2]  in print step
+[3 4]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[1 2 0 0 0]
+[1 2 0 0 0]  in print step
+[0 1]  proton indices
+[1 2 0 0 0]
+[1 2 0 0 0]  in print step
+[0 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[1 2 0 0 0]
+[1 2 0 0 0]  in print step
+[0 1]  proton indices
+[1 2 0 0 0]
+[1 2 0 0 0]  in print step
+[0 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[1 2 0 0 0]
+[1 2 0 0 0]  in print step
+[0 1]  proton indices
+[1 2 0 0 0]
+[1 2 0 0 0]  in print step
+[0 1]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[1 2 0 0 0]
+[1 2 0 0 0]  in print step
+[0 1]  proton indices
+[1 2 0 0 0]
+[1 2 0 0 0]  in print step
+[0 1]  proton indices
+[1 2 0 0 0]
+[1 2 0 0 0]  in print step
+[0 1]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[0 1 2 0 0]
+[0 1 2 0 0]  in print step
+[1 2]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+700  /  1000[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[1 0 2 0 0]
+[1 0 2 0 0]  in print step
+[0 2]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[0 1 2 0 0]
+[0 1 2 0 0]  in print step
+[1 2]  proton indices
+[0 1 2 0 0]
+[0 1 2 0 0]  in print step
+[1 2]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[1 0 0 0 2]
+[1 0 0 0 2]  in print step
+[0 4]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+800  /  1000[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 0 2 1 0]
+[0 0 2 1 0]  in print step
+[3 2]  proton indices
+[0 0 2 1 0]
+[0 0 2 1 0]  in print step
+[3 2]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[0 0 0 2 1]
+[0 0 0 2 1]  in print step
+[4 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[1 0 0 2 0]
+[1 0 0 2 0]  in print step
+[0 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[2 0 1 0 0]
+900  /  1000[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 1 0 2 0]
+[0 1 0 2 0]  in print step
+[1 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 0 1 2 0]
+[0 0 1 2 0]  in print step
+[2 3]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[0 1 0 0 2]
+[0 1 0 0 2]  in print step
+[1 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[0 0 1 0 2]
+[0 0 1 0 2]  in print step
+[2 4]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[0 2 1 0 0]
+[0 2 1 0 0]  in print step
+[2 1]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[2 0 0 0 1]
+[2 0 0 0 1]  in print step
+[4 0]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 0 2 0 1]
+[0 0 2 0 1]  in print step
+[4 2]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 0 1]
+[0 2 0 0 1]  in print step
+[4 1]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[0 0 2 1 0]
+[0 0 2 1 0]  in print step
+[3 2]  proton indices
+[0 0 2 1 0]
+[0 0 2 1 0]  in print step
+[3 2]  proton indices
+[0 0 2 1 0]
+[0 0 2 1 0]  in print step
+[3 2]  proton indices
+[0 0 2 1 0]
+[0 0 2 1 0]  in print step
+[3 2]  proton indices
+[0 0 2 1 0]
+[0 0 2 1 0]  in print step
+[3 2]  proton indices
+[0 0 2 1 0]
+[0 0 2 1 0]  in print step
+[3 2]  proton indices
+[0 0 2 1 0]
+[0 0 2 1 0]  in print step
+[3 2]  proton indices
+[0 2 0 1 0]
+[0 2 0 1 0]  in print step
+[3 1]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 0 1 0]
+[2 0 0 1 0]  in print step
+[3 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 0 1 0 0]
+[2 0 1 0 0]  in print step
+[2 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+[2 1 0 0 0]  in print step
+[1 0]  proton indices
+[2 1 0 0 0]
+overall_number_of_jumps: 333.0
+auxiliary file lmc.out.npz does not exist
+number of frames: 1000
+--- 0.011145830154418945 seconds ---
+Trajectory will be neither wrapped nor unwrapped.
+['O', 'O', 'O', 'O', 'O', 'H', 'H'] 7 (1000, 7, 3)

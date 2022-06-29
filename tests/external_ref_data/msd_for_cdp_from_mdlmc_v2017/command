@@ -1,0 +1,3 @@
+source  activate lmc_std2017
+
+mdmc cmdlmc control

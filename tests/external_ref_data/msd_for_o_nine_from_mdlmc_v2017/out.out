@@ -1,0 +1,28 @@
+# Reading config file control
+# Found no value for auxiliary_file in config file
+# Will use default value: None
+# Found no value for o_neighbor in config file
+# Will use default value: None
+# Found no value for clip_trajectory in config file
+# Will use default value: None
+# Found no value for angle_threshold in config file
+# Will use default value: 1.5707963267948966
+# Found no value for jumpmatrix_filename in config file
+# Will use default value: None
+# Hello. I am from commit 8491fb493ae2109b33b24cfe397195e09b21034d
+# Commit Date: Wed Mar 3 11:53:52 2021 +0100
+# Commit Message:  selen
+# No oxygen neighbor specified, therefore the angle dependency will be switched off
+INFO:mdlmc.IO.xyz_parser:Looking for auxiliary file o_nine.npz
+INFO:mdlmc.IO.xyz_parser:No auxiliary file found.
+INFO:mdlmc.IO.xyz_parser:Will create it now...
+DEBUG:mdlmc.IO.xyz_parser:Frame length: 11
+/home/dressler/anaconda3/envs/lmc_std2017/lib/python3.8/site-packages/mdlmc-0.1-py3.8-linux-x86_64.egg/mdlmc/IO/xyz_parser.py:44: UserWarning: genfromtxt: Empty input file: "<generator object parse_xyz.<locals>.filter_lines at 0x7f9bc9e41510>"
+  data = np.genfromtxt(filter_, dtype=dtype_xyz_bytes)
+
+INFO:mdlmc.IO.xyz_parser:Removing center of mass movement...
+# Will use orthorhombic box
+# Using seed 345
+# Saving transitions 0 / 10
+# Done
+

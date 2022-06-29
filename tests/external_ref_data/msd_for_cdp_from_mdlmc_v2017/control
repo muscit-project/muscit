@@ -1,0 +1,57 @@
+#filename /net/shared/dressler/benchmark/trajektories/csh2po4/100/test-30ps_out.xyz
+#filename /net/shared/dressler/benchmark/trajektories/csh2po4/500ps-travis/csh2po4-pos-1_out.xyz
+#filename hou-neu-pos-1_out.xyz
+#meauxiliary_file <MISSING VALUE>
+#output <_io.TextIOWrapper name='<stdout>' mode='w' encoding='UTF-8'>
+output lmc.out
+o_neighbor P
+sweeps 1000000
+equilibration_sweeps 25000
+skip_frames 0
+print_freq 100
+reset_freq 10000
+neighbor_list True
+neighbor_search_radius 15.0
+proton_number 1
+#clip_trajectory 1000
+seed 345
+md_timestep_fs 1
+angle_threshold 1.5707963267948966
+cutoff_radius 4.0
+shuffle False
+verbose True
+xyz_output False
+periodic_wrap False
+#jumpmatrix_filename <MISSING VALUE>
+box_multiplier 1 1 1
+#pbc 9.922 9.922 19.844
+jumprate_type MD_rates
+#jumprate_params_fs dict(a=0.090914758, b=2.503865, c=0.04078215)
+#0.090914758
+#2.503865
+#0.04078215
+higher_msd False
+variance_per_proton False
+angle_dependency True
+#achtung cutt off ist aus 
+#angle_dependency False
+hdf5 False
+#driven False
+#driven_charged True
+#exchanged_protons 1
+#insert_depth 4.0
+#insert_freq 100
+#filename hou-neu-pos-1_out.xyz
+#jumprate_params_fs dict(a=0.090914758, b=2.503865, c=0.04078215)
+pbc 9.922 9.922 19.844
+#0.090914758
+#pbc 19.378407 19.378407 19.378407
+filename csh2po4-pos-1_out.xyz
+jumprate_params_fs dict(a=0.19801506, b=2.37714393, c=0.05828983136528336)
+#1.980150595995111285e-01
+#2.377143932263158899e+00
+#1.715565093563791876e+01
+##
+#>>> 1/1.715565093563791876e+01
+#0.05828983136528336
+

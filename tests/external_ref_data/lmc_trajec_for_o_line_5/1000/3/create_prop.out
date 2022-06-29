@@ -1,0 +1,11 @@
+command line:
+['/home/dressler/anaconda3/bin/create_propagation_matrix', 'o_line_five.xyz', 'pbc', 'False', 'nowrap', 'O']
+# Hello. I am from commit 414fb90a538591bf23f04485f116e27c1f24a11c
+# Commit Date: Tue May 10 10:41:42 2022 +0200
+# Commit Message: Merge branch 'master' into short_time_develop_master_christian
+auxiliary file o_line_five.xyz.npz  exists
+--- 0.0033342838287353516 seconds ---
+Trajectory will be neither wrapped nor unwrapped.
+create_propagation_matrix
+Looking for these these lattice site pairs:  ['OO']
+0 / 10

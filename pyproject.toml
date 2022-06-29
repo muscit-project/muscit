@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+#requires = ["setuptools>=61.0", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "misp"
+version = "0.0.1"
+authors = [
+  { name="Christian Dressler", email="ch.dressler@outlook.com" },
+  { name="Johnny Alexander Jimenez Siegert", email="jajs@gmx.de" },
+]
+description = "Multi-scale ion simulation package"
+readme = "README.md"
+license = { file="LICENSE" }
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+#    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dynamic = ["dependencies"]
+#dynamic = ["dependencies", "version"]
+
+#[project.urls]
+#"Homepage" = "https://github.com/pypa/sampleproject"
+#"Bug Tracker" = "https://github.com/pypa/sampleproject/issues"
+
+
+
+[project.scripts]
+evaluate_jumps_on_grid = "lmc.find_jumps:main"
+adv_calc_jump_rate = "lmc.jump_rates_and_fit:main"
+create_propagation_matrix = "lmc.propagation_matrix:main"
+lmc_prep = "lmc.prepare_lmc:main"
+#findjumps = "lmc.find_jumps:main"
+#jumprates_and_fit = "lmc.jump_rates_and_fit:main"
+#calculate_propagation_matrix = "lmc.propagation_matrix:main"
+#prepare_lmc = "lmc.prepare_lmc:main"
+misp = "lmc.misp_lmc:main"
+educational_create_propagation_matrix = "lmc.educational_create_propagation_matrix:main"
+msd_from_markov = "markov.matrix:script_msd"
+markov_mat_from_neigh_mat = "markov.matrix:script_markov_matrix_from_neigh_mat"
+msd_from_md = "analysis.msd_from_md:script_msd_from_md"
+msd_from_neigh_mat = "analysis.msd_from_md:script_msd_from_neigh"
+create_jump_mat_li = "lmc.find_jumps:main"
+
+[tool.setuptools.dynamic]
+#version = {attr = "my_package.VERSION"}
+dependencies = {file = ["requirements.txt"]}
+
+#[tool.setuptools_scm]
