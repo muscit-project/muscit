@@ -1,5 +1,8 @@
 #!/bin/bash  
-pre1="../../../../../test_dir/external_ref_data/lmc_trajec_for_o_line_5/"
+#pre1="../../../../../test_dir/external_ref_data/lmc_trajec_for_o_line_5/"
+
+pre1="../../../../../tests/external_ref_data/lmc_trajec_for_o_line_5/"
+
 
 for arg1 in 1000 ; do
         echo $arg1

@@ -44,6 +44,7 @@ markov_mat_from_neigh_mat = "markov.matrix:script_markov_matrix_from_neigh_mat"
 msd_from_md = "analysis.msd_from_md:script_msd_from_md"
 msd_from_neigh_mat = "analysis.msd_from_md:script_msd_from_neigh"
 create_jump_mat_li = "lmc.find_jumps:main"
+std_msd_from_md_unwrap = "analysis.msd:script_msd_unwrap"
 
 [tool.setuptools.dynamic]
 #version = {attr = "my_package.VERSION"}

@@ -7,7 +7,7 @@ import os
 import pytest
 from scipy.optimize import curve_fit
 from trajec_io import readwrite
-from ana_tools import msd
+from analysis import msd
 
 
 

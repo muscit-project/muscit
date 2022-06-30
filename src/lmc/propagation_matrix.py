@@ -98,7 +98,7 @@ def create_jumpprob_matrix(analysishelper, fermi_file = "fermi_param", distances
 
         #all_jumpprobs.append( coo_matrix( (distances, (sources, destinations)), shape = (analysishelper.lattice_no, analysishelper.lattice_no)) )
         all_jumpprobs.append( coo_matrix( (distances, (destinations, sources)), shape = (analysishelper.lattice_no, analysishelper.lattice_no)) )
-
+    
     if out_jumpprobs is not None:
         with open( out_jumpprobs, "wb" ) as f:
             pickle.dump(all_jumpprobs, f)

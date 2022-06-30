@@ -1,5 +1,4 @@
 import numpy as np
-from ana_tools import basic
 from trajec_io import readwrite
 import argparse
 import os
@@ -7,9 +6,7 @@ import pickle
 import sys
 import time
 from scipy import sparse
-from markov import neighbor
 import warnings
-from new_analysis import prepare_lmc
 from scipy.sparse import coo_matrix
 
 

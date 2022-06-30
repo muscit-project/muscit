@@ -103,10 +103,11 @@ def main():
     traj = readwrite.easy_read(args.path1, pbc_mat, args.com, args.wrap)
     if args.lattice_coords == "first_frame":
         fixed_lattice = traj.coords[ 0, np.isin( traj.atomlabels, args.lattice_type ), : ]
-        np.save("lattice1.npy", fixed_lattice)
+        print("hallo", fixed_lattice.shape, np.squeeze(fixed_lattice).shape)
+        np.save("lattice1.npy", np.squeeze(fixed_lattice))
     elif args.lattice_coords is not None:
         fixed_lattice = np.load( args.lattice_coords )
-        np.save("lattice1.npy", fixed_lattice)
+        np.save("lattice1.npy", np.squeeze(fixed_lattice))
     else:
         fixed_lattice = None
     # put passed arguments into Settings object

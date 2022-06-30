@@ -46,11 +46,13 @@ def main():
         else:
             if args.lattice_coords == "first_frame":
                 fixed_lattice = traj.coords[ 0, np.isin( traj.atomlabels, args.lattice_types ), : ]
-                np.save("lattice1.npy", fixed_lattice)
+                #np.save("lattice1.npy", fixed_lattice)
+                np.save("lattice1.npy", np.squeeze(fixed_lattice))
 #            elif args.lattice_coords is not None:
             else:
                 fixed_lattice = readwrite.easy_read( args.lattice_coords, pbc_mat, True, "nowrap" ).coords
-                np.save("lattice1.npy", fixed_lattice)
+                #np.save("lattice1.npy", fixed_lattice)
+                np.save("lattice1.npy", np.squeeze(fixed_lattice))
         # put passed arguments into Settings object
         angle_atoms = None
         normal_occupation = None
