@@ -160,3 +160,16 @@ cython_debug/
 #.idea/
 #
 old_*
+
+tests/**/*/jumpprob_histogram*
+tests/**/*.npy
+tests/**/*.npz
+tests/**/overall_number_of_jumps
+tests/**/*.p
+tests/**/*.log
+tests/**/*.out
+tests/**/jump_mat_sampled_from_lmc_run
+tests/**/*.xyz
+tests/**/msd_*
+tests/**/*.txt
+tests/**/D_random

@@ -4,6 +4,7 @@ import time
 import pandas as pd
 import logging
 import itertools
+import subprocess
 
 import numpy as np
 
@@ -85,9 +86,17 @@ class Trajectory:
     def next_neighbor2(self, group1, group2):
         return next_neighbor2(group1, group2, self.pbc, self.inv_pbc)
 
+def start_logging():
+    logging.basicConfig(filename='misp.log', level=logging.INFO)
+    log_git_version()
+
+def return_git_version():
+    command = "git log -n 1 --format=%H%n%s%n%ad"
+    commit_hash, commit_message, commit_date = subprocess.check_output(command.split(), cwd=os.path.dirname(os.path.abspath(__file__))).strip().split(b"\n")
+    return commit_hash.decode(), commit_message.decode(), commit_date.decode()
+
 def get_git_version():
-    from commit_stuff.version_hash import (commit_date, commit_hash,
-                                           commit_message)
+    commit_hash, commit_message, commit_date = return_git_version()
 
     print("# Hello. I am from commit {}".format(commit_hash))
     print("# Commit Date: {}".format(commit_date))
@@ -95,12 +104,11 @@ def get_git_version():
 
 
 def log_git_version():
-    from commit_stuff.version_hash import (commit_date, commit_hash,
-                                           commit_message)
+    commit_hash, commit_message, commit_date = return_git_version()
 
-    logging.debug("# Hello. I am from commit {}".format(commit_hash))
-    logging.debug("# Commit Date: {}".format(commit_date))
-    logging.debug("# Commit Message: {}".format(commit_message))
+    logging.info("# Hello. I am from commit {}".format(commit_hash))
+    logging.info("# Commit Date: {}".format(commit_date))
+    logging.info("# Commit Message: {}".format(commit_message))
 
 
 def relative_pbc(coord, pbc_mat):
