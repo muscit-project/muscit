@@ -1,0 +1,16 @@
+auxiliary file Li12Si7-pos-1_every_100th_false_false.xyz.npz  exists
+--- 0.014241218566894531 seconds ---
+remove com
+WARNING mass of Li is equal to zero.
+--- 0.022643089294433594 seconds ---
+Trajectory will be neither wrapped nor unwrapped.
+Lattice atoms:  ['Li']
+using coords from geo.xyz as lattice
+auxiliary file geo.xyz.npz  exists
+--- 0.0009706020355224609 seconds ---
+remove com
+WARNING mass of Li is equal to zero.
+--- 0.00018548965454101562 seconds ---
+Trajectory will be neither wrapped nor unwrapped.
+Found 2100 timesteps.
+Found 4719 jumps.

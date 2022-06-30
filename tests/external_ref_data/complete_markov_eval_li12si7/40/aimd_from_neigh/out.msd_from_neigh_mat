@@ -1,0 +1,8 @@
+command line:
+['/home/dressler/anaconda3/bin/msd_from_neigh_mat', 'jumping_ion_neighbors.npy', 'lattice1.npy', 'pbc_li12si7', '0.05', '40', '1']
+# Hello. I am from commit 45bdb0b57082048c50d034e91add16d36edba279
+# Commit Date: Fri Jun 24 10:34:45 2022 +0200
+# Commit Message: brakpints removed
+0
+1000
+2000

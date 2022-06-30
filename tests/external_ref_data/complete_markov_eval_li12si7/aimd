@@ -1,0 +1,35 @@
+#!/bin/bash
+#mid1="/travis_NtoO/"
+#end1="-pos-1.xyz"
+#trajek="restore_Li13Si4-pos-1-proc-ele-800K-100th.xyz"
+trajek="Li12Si7-pos-1_every_100th_false_false.xyz"
+#pbc="pbc_li13si4"
+pbc="pbc_li12si7"
+#pbc_li13si4  restore_Li13Si4-pos-1-proc-ele-800K-100th.xyz
+#for arg1 in 1 2 4 8 16 32 ; do
+#for arg1 in 1 2  4 8 16  32 ; do
+#for arg1 in 10 20  40 80 160  320 ; do
+for arg1 in   40  ; do
+#for arg1 in  8 16  32 ; do
+#for arg1 in 20 40 80; do
+       echo $arg1
+       mkdir $arg1
+       cd $arg1
+       #for arg2 in aimd aimd_from_neigh msd_from_neigh; do
+       #echo $arg2
+       #mkdir $arg2
+       #cd $arg2
+       mkdir aimd
+       cd aimd
+       cp ../../$pbc .
+       cp ../../$trajek .
+       #create_jump_mat_li Li13Si4-pos-1_feb22.xyz  pbc_li13si4  True  nowrap 1 Li Li --lattice geo.xyz
+       #msd_from_neigh_mat jumping_ion_neighbors.npy lattice1.npy pbc_li13si4 0.05 40 1 
+       #create_jump_mat_li $trajek $pbc  True  nowrap 1 Li Li > out.create_jump_mat_li
+       #msd_from_neigh_mat jumping_ion_neighbors.npy lattice1.npy $pbc 0.05 $arg1 1 > out.msd_from_neigh_mat  
+       #msd_from_md Li13Si4-pos-1_feb22.xyz  pbc_li13si4  True nowrap Li 0.05 20 1 --max_length 1000
+       msd_from_md $trajek $pbc  True nowrap Li 0.05 $arg1 1 > out.aimd
+       cd ..
+       cd ..
+done
+

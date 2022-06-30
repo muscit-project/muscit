@@ -1,0 +1,65 @@
+command line:
+['/home/dressler/anaconda3/bin/msd_from_md', 'Li12Si7-pos-1_every_100th_false_false.xyz', 'pbc_li12si7', 'True', 'nowrap', 'Li', '0.05', '40', '1']
+# Hello. I am from commit 45bdb0b57082048c50d034e91add16d36edba279
+# Commit Date: Fri Jun 24 10:34:45 2022 +0200
+# Commit Message: brakpints removed
+auxiliary file Li12Si7-pos-1_every_100th_false_false.xyz.npz  exists
+--- 0.025122642517089844 seconds ---
+remove com
+WARNING mass of Li is equal to zero.
+--- 0.02210211753845215 seconds ---
+Trajectory will be neither wrapped nor unwrapped.
+0
+40
+80
+120
+160
+200
+240
+280
+320
+360
+400
+440
+480
+520
+560
+600
+640
+680
+720
+760
+800
+840
+880
+920
+960
+1000
+1040
+1080
+1120
+1160
+1200
+1240
+1280
+1320
+1360
+1400
+1440
+1480
+1520
+1560
+1600
+1640
+1680
+1720
+1760
+1800
+1840
+1880
+1920
+1960
+2000
+2040
+2080
+duration: 1.1101276829722337
