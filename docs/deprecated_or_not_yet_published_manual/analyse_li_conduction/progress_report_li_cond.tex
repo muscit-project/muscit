@@ -1,0 +1,375 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb}
+\usepackage{bm}
+\usepackage[utf8]{inputenc}
+\usepackage{placeins}
+\usepackage{authblk}
+\usepackage{subscript}
+
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage[%
+ top=1.5cm,%
+ bottom=1.5cm,%
+ inner=1.5cm,%
+ outer=1.5cm,%
+ ]{geometry}
+\usepackage{subcaption}
+\usepackage[table]{xcolor}
+\usepackage{soul}
+
+
+
+
+
+
+\newcommand*{\remark}[1]{\texttt{\emph{#1}}}
+\newcommand{\angstrom}{\textup{\AA}}
+
+\let\vaccent=\v %
+\renewcommand{\v}[1]{\ensuremath{\mathbf{#1}}} %
+\newcommand{\gv}[1]{\ensuremath{\bm{#1}}} %
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}} %
+\newcommand{\ket}[1]{| #1 \rangle} %
+\newcommand{\bra}[1]{\langle #1 |} %
+\newcommand{\braket}[2]{\langle #1 \vphantom{#2} |  #2 \vphantom{#1} \rangle} %
+\newcommand{\sss}{\scriptscriptstyle} %
+\newcommand{\f}[2]{\frac{#1}{#2}} %
+\newcommand{\zth}{{\sss (0)}} %
+\newcommand{\fst}{{\sss (1)}} %
+\newcommand{\snd}{{\sss (2)}} %
+\newcommand{\abs}[1]{\left| #1 \right|} %
+\newcommand{\mred}[1]{\textcolor{red}{#1}} %
+
+
+
+\newcommand{\hpb}[1]{\textit{p}-#1PA-HPB}
+\newcommand{\hpbl}[1]{#1\-(\textit{p}-phos\-pho\-na\-to\-phe\-nyl)\-ben\-zene}
+\newcommand{\naf}[0]{Nafion\textsuperscript{\textregistered}}
+\newcommand{\pvpa}[0]{poly\-[vi\-nyl phos\-pho\-nic acid]}
+
+
+\newcommand{\mypath}{./images/}
+
+\newcounter{verbindungen} 
+\newcommand{\Verb}[1]{\refstepcounter{verbindungen}\label{#1}}
+\newcommand{\vref}[1]{{\bf \ref{#1}}}
+
+
+
+\begin{document}
+
+
+
+
+
+
+
+\title{Progress Report: Mechanism of lithium conduction in Li$_x$Si$_y$}
+
+\setcounter{Maxaffil}{0}
+\renewcommand\Affilfont{\itshape\small}
+
+
+\maketitle
+
+
+
+
+ \newpage
+\newpage
+
+
+
+
+
+
+ \section{Mechanism of lithium conduction in Li$_{13}$Si$_4$ and Li$_{12}$Si$_7$}
+ 
+ 
+ 
+ 
+ 
+\begin{itemize}
+  \item \textbf{First, we use the ``reduce\_trajec'' script in order to obtain smaller trajectories which contain only  every 100th or 10th frame. }
+  \item \textbf{Second, we introduce a discrete lattice for the positions of the lithium atoms, suited for the description of the lithium conduction mechanism. In this study, we used the positions of the lithium atoms resulting from  the relaxed crystal structures as   lattice sites.}
+\end{itemize}
+
+
+
+
+
+
+
+
+
+\subsection{Total jumps between lattice sites}
+
+ The Figures in this section visualize the  total number of ion jumps  between the lattice sites (within the entire trajectory)  by blue lines. The thickness of the lines is related to the number of ion jumps. The thickness is also normed with respect to the length of the trajectory and thus can be compared between different trajectories.
+ 
+ 
+\subsection{Total jumps between lattice sites in Li$_13$Si$_4$ at 500 K}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{figure/tot_jumps/state-li13si4.png}
+\caption{Total jumps between lattice sites in Li$_13$Si$_4$ at 500 K} 
+\end{figure}
+
+
+\begin{verbatim}
+cd PATH2/li13si4/elecell/500/get_jump_arrows
+cp ../trajec/geo.xyz .
+python create_lattice_unchanged.py
+get_jump_arrows ../jump_mat.npy lattice_user_wrapped.npy geo_user_wrapped ../trajec/pbc_li13si4 1 1
+vmd -e geo_user_wrapped.tcl
+\end{verbatim}
+
+
+\FloatBarrier
+\subsection{Total jumps between lattice sites in Li$_13$Si$_4$ at 800 K}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{figure/tot_jumps/state-li13si4-800k.png}
+\caption{Total jumps between lattice sites in Li$_13$Si$_4$ at 800 K} 
+\end{figure}
+\begin{verbatim}
+cd PATH2/li13si4/elecell/800/get_jump_arrows
+cp ../trajec/geo.xyz .
+python create_lattice_unchanged.py
+get_jump_arrows ../jump_mat.npy lattice_user_wrapped.npy geo_user_wrapped ../trajec/pbc_li13si4 1 1
+vmd -e geo_user_wrapped.tcl
+\end{verbatim}
+
+\FloatBarrier
+\subsection{Total jumps between lattice sites in Li$_12$Si$_7$ at 500 K}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{figure/tot_jumps/statei-li12si7-y.png}
+\caption{Total jumps between lattice sites in Li$_12$Si$_7$ at 500 K} 
+\end{figure}
+
+\begin{verbatim}
+cd PATH2/li12i7/elecell/500/get_jump_arrows
+cp ../trajec/geo_new.xyz .
+get_jump_arrows ../jump_mat.npy ../lattice1.npy geo_new ../trajec/pbc_li12si7 1 1
+vmd -e geo_new.tcl
+\end{verbatim}
+
+
+
+
+\FloatBarrier
+\subsection{Total jumps between lattice sites in Li$_21$Si$_5$ at 500 K}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{figure/tot_jumps/state-li21si5.png}
+\caption{Total jumps between lattice sites in Li$_21$Si$_5$ at 500 K} 
+\end{figure}
+\begin{verbatim}
+cd PATH2/li21si5/elecell/500/get_jump_arrows
+cp ../trajec/geo_new.xyz .
+get_jump_arrows ../jump_mat.npy ../lattice1.npy geo_new ../trajec/pbc_li21si5 1 1
+vmd -e geo_new.tcl
+\end{verbatim}
+
+
+
+
+
+\FloatBarrier
+\subsection{Total jumps between lattice sites in Li$_17$Si$_4$ at 800 K}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{figure/tot_jumps/state-li17si4-800.png}
+\caption{Total jumps between lattice sites in Li$_17$Si$_4$ at 800 K} 
+\end{figure}
+\begin{verbatim}
+cd PATH2/li17si4/elecell/500/get_jump_arrows
+cp ../trajec/geo_new.xyz .
+get_jump_arrows ../jump_mat.npy ../lattice1.npy geo_new ../trajec/pbc_li21si5 1 1
+vmd -e geo_new.tcl
+\end{verbatim}
+
+\FloatBarrier
+\subsection{Total jumps between lattice sites in Li$_22$Si$_5$ at 500 K}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{figure/tot_jumps/state-li22si5.png}
+\caption{Total jumps between lattice sites in  Li$_22$Si$_5$ at 500 K} 
+\end{figure}
+\begin{verbatim}
+cd PATH2/li22si5/elecell/500/get_jump_arrows
+cp ../trajec/geo_new.xyz .
+get_jump_arrows ../jump_mat.npy ../lattice1.npy geo_new ../trajec/pbc_li22si5 1 1
+vmd -e geo_new.tcl
+\end{verbatim}
+
+
+
+\FloatBarrier
+ \subsection{SDF of all lithium atoms}
+ Only on principal example because i believe that this function is not so important.
+ \begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{figure/tot_jumps/pic2.png}
+\caption{SDF of all lithium atoms Li$_13$Si$_4$ at 500 K} 
+\end{figure}
+\begin{verbatim}
+cd PATH2/li13si4/elecell/500/cube_and_saddle_smooth
+python cube_and_saddle_smooth.py
+vmd  full_dens_smooth1.cube
+save manually to file
+
+\end{verbatim}
+\FloatBarrier
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ \subsection{Averaged lithium fluxes}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{figure/li13si4.png}
+\caption{Spatial density/averaged fluxes of lithium atoms in li13si4, which start from a specific lattice site. Blue: 500K, red: 800K.} 
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+\begin{subfigure}[b]{0.49\linewidth}
+\includegraphics[width=\linewidth]{figure/li12si7-1.png}
+\end{subfigure}%
+\quad
+\begin{subfigure}[b]{0.49\linewidth}
+\includegraphics[width=\linewidth]{figure/li12si7-3.png}
+\end{subfigure}
+\caption{Spatial density/averaged fluxes of lithium atoms in li12si7, which start from a specific lattice site. Different colors indicate different initial lithium sites.} 
+\label{fig:snapi2}
+\end{figure}
+
+
+
+\subsubsection{Which scripts were used to produce these figures or tables:}
+
+
+\begin{itemize}
+  \item \textbf{create\_jump\_mat\_li}
+  \item  \begin{verbatim}special_sdf.py\end{verbatim}
+  \item vmd 
+  \end{itemize}
+  
+
+\FloatBarrier
+
+\subsection{Statistical analysis of connected jumps}
+
+
+\begin{itemize}
+\item Within a given temporal interval (x-axis in the Figures \ref{fig:4} and \ref{fig:5}), we determine groups of lithium sites which are connected by lithium jumps. These groups of connected lithium sites are referred to as jump types. 
+\item Within our statistical analysis of the connected jumps, we determine the different jump types as well as  their occurrence.  
+\end{itemize}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{figure/stat/duration_rel.pdf}
+\caption{We determined the number of lithium  jump types which contribute 50 \% to the overall number of lithium jumps. In this Figure, the ratio between this number and the overall number of detected  jump types  is presented with respect to different maximal durations of a lithium jump. Be careful li17si4 is investigated at 800K! }    
+\label{fig:4}
+\end{figure}
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{figure/stat/duration_05_avg_std.pdf}
+\caption{We determined the number of lithium  jump types which contribute 50 \% to the overall number of lithium jumps. 
+In this Figure we analyse the  most frequent lithium jump types which contribute 50 \% to the overall number of lithium jumps. 
+We calculated the average and the standard deviation of the number of lithium sites, which are involved in these jump types.Be careful li17si4 is investigated at 800K! }
+\label{fig:5}
+\end{figure}
+
+\FloatBarrier
+
+\subsubsection{Which scripts where used to produce these figures or tables:}
+\begin{itemize}
+  \item \textbf{create\_jump\_mat\_li}
+  \item jumps\_from\_grid ../jump\_mat.npy 0 1500 1 1
+  \item cp jump\_hist.txt jump\_hist\_1.txt
+  \item jumps\_from\_grid ../jump\_mat.npy 0 1500 10 10
+  \item cp jump\_hist.txt jump\_hist\_10.txt
+   \item jumps\_from\_grid ../jump\_mat.npy 0 1500 100 100
+\item cp jump\_hist.txt jump\_hist\_100.txt
+  \item prepare dicts with statistic data
+  \begin{itemize}
+    \item  \begin{verbatim}$PATH2/li13si4/elecell/500/advanced_jump_stat_ready_to_print/advanced_jump_stat_ready_to_print.py\end{verbatim}
+  \item  \begin{verbatim}$PATH2/li12si7/elecell/500/advanced_jump_stat_ready_to_print/advanced_jump_stat_ready_to_print.py\end{verbatim}
+  \item  \begin{verbatim}$PATH2/li21si5/elecell/500/advanced_jump_stat/advanced_jump_stat_ready_to_print.py\end{verbatim}
+  \item  \begin{verbatim}$PATH2/li15si4/elecell/800/advanced_jump_stat/advanced_jump_stat_ready_to_print.py\end{verbatim}
+    \item  \begin{verbatim}$PATH2/li17si4/elecell/800/advanced_jump_stat/advanced_jump_stat_ready_to_print.py\end{verbatim}
+  \end{itemize}
+  \item plot dicts to Figure:
+  \begin{itemize}
+  \item  \begin{verbatim}/net/shared/dressler/creating_nice_figures_2018/lithium/jump_stat2/plot_dict1.py\end{verbatim}
+  \item  \begin{verbatim}/net/shared/dressler/creating_nice_figures_2018/lithium/jump_stat2/plot_dict_avg_std.py\end{verbatim}
+  \item  \begin{verbatim}/net/shared/dressler/creating_nice_figures_2018/lithium/jump_stat2/test.py\end{verbatim}
+  \end{itemize}
+  \end{itemize}
+
+\FloatBarrier
+
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{ c|c } 
+compound & number of Li jumps \\ 
+\hline
+\hline
+li21si5 & 7725\\
+\hline
+li15si4 800 K& 12 \\
+\hline
+li12si7 & 1114 \\
+\hline
+li13si4 & 5387 \\
+li22si5 & 7810 \\
+li17si4 800 K & 997 \\
+ \hline
+\end{tabular}
+\end{center}
+\caption{Number of total Li jumps NOT normalized by number of Li lattice  sites or the trajectory length. A connected jump between three lithium sites is counted as only one jump. }
+\label{table:1}
+\end{table}
+
+
+
+
+
+  
+\FloatBarrier
+\subsection{Sequential or concerted lithium jumps?}
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{figure/delay/delay_histo_5.pdf}
+\caption{We present a probability distribution of  the delay between lithium jumps between lattice sites in direct spatial adjacency.}
+\end{figure}
+
+
+
+
+
+
+
+ \end{document}
