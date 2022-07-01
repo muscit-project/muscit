@@ -103,10 +103,12 @@ def main():
     traj = readwrite.easy_read(args.path1, pbc_mat, args.com, args.wrap)
     if args.lattice_coords == "first_frame":
         fixed_lattice = traj.coords[ 0, np.isin( traj.atomlabels, args.lattice_type ), : ]
-        print("hallo", fixed_lattice.shape, np.squeeze(fixed_lattice).shape)
         np.save("lattice1.npy", np.squeeze(fixed_lattice))
     elif args.lattice_coords is not None:
-        fixed_lattice = np.load( args.lattice_coords )
+        #fixed_lattice = np.load( args.lattice_coords )
+        fixed_coords, fixed_atoms = readwrite.easy_read( args.lattice_coords, pbc_mat, True, "nowrap" )
+        fixed_coords = np.squeeze(fixed_coords)
+        fixed_lattice = fixed_coords[np.isin( fixed_atoms, args.lattice_types ),:]
         np.save("lattice1.npy", np.squeeze(fixed_lattice))
     else:
         fixed_lattice = None

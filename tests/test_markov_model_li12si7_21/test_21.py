@@ -25,8 +25,8 @@ def test_markov_21():
     assert  msd_neigh[1,1] == pytest.approx(aimd_neigh[1,1] , rel=0.0001 )
     1.867540730401321625e+00
     assert  aimd[1,1] == pytest.approx(1.867540730401321625e+00, rel=0.0001 )
-    #assert  msd_neigh[99,1] == pytest.approx(3.182747677917102180e+01, rel=0.0001 )
-    assert  msd_neigh[99,1] == pytest.approx(2.283974143032391524e+01, rel=0.0001 )
+    assert  msd_neigh[99,1] == pytest.approx(3.182747677917102180e+01, rel=0.0001 )
+    #assert  msd_neigh[99,1] == pytest.approx(2.283974143032391524e+01, rel=0.0001 )
     assert  aimd[15,1] == pytest.approx(aimd_neigh[15,1] , rel=0.01 )
  
     #number =  1000

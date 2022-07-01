@@ -50,8 +50,11 @@ def main():
                 np.save("lattice1.npy", np.squeeze(fixed_lattice))
 #            elif args.lattice_coords is not None:
             else:
-                fixed_lattice = readwrite.easy_read( args.lattice_coords, pbc_mat, True, "nowrap" ).coords
+                #fixed_lattice = readwrite.easy_read( args.lattice_coords, pbc_mat, True, "nowrap" ).coords
                 #np.save("lattice1.npy", fixed_lattice)
+                fixed_coords, fixed_atoms = readwrite.easy_read( args.lattice_coords, pbc_mat, True, "nowrap" )
+                fixed_coords = np.squeeze(fixed_coords)
+                fixed_lattice = fixed_coords[np.isin( fixed_atoms, args.lattice_types ),:]
                 np.save("lattice1.npy", np.squeeze(fixed_lattice))
         # put passed arguments into Settings object
         angle_atoms = None
