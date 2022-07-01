@@ -1,12 +1,10 @@
-# MUSCIT: Multiscale Ion Transport Simualtion 
+# MUSCIT: Multiscale Ion Transport Simulation. 
 
-This package aims at the simulation of ionic motion   at large time and length scales.  While local transfer rates are sampled from atomistic (ab initio) molecular dynamics  simulations,
-the actual long term propagation of particles is acheived/done  probabilistically  among a (dynamically evolving) grid of lattice atoms.
-Dependent on the secific type of ion and conduction mechanism, ion transport can be simulated via the application of a transition matrix (Markov chain) or via a Lattice Monte Carlo approach. 
+This package aims to simulate ion motion on large time and length scales.  While local transfer rates are taken from atomistic (ab initio) molecular dynamics simulations,
+the actual long-term propagation of particles is carried out probabilistically between a (dynamically evolving) grid of lattice atoms.
+Depending on the ion type and the conduction mechanism, ion transport can be simulated by applying a transition matrix (Markov chain) or by a Lattice Monte Carlo approach.
 
-Furthermore, this package provides a variety of tools, scripts and code snipets for a) basic analysis of trajectories, b)  creation of own analysis function and  c) analysis and visualization  of ionic motion. 
-
-
+In addition, this package provides a variety of tools, scripts, and code snippets for a) basic analysis of trajectories, b) creation of custom analysis functions, and c) analysis and visualization of ion motion.
 
 ## How To
 see `path/to/docs` for documention of the package
