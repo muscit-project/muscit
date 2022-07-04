@@ -4,27 +4,27 @@ import os
 import pickle
 import sys
 import time
-from dataclasses import dataclass
+import random
+from dataclasses import dataclass, asdict
 
 import numpy as np
 from scipy import sparse
-
-
 from trajec_io import readwrite
 
+from transonic import boost
 
 @dataclass
 class SettingsManager:
     noji : int
     nols : int
-    md_timestep : float
+    #md_timestep : float
     sweeps : int
     equilibration_sweeps : int
     verbose : bool
     xyz_output : bool
-    print_freq : bool
-    reset_freq : bool
-    output_path : str
+    print_freq : int
+    reset_freq : int
+    #output_path : str
     seed : int
 
 def boolean_string(s):
@@ -55,156 +55,252 @@ def prepare_custom_prob(helper):
     return None
 
 class Helper:
+    noji: int
+    nols: int
+    jumps: int
+    jump_mat_recalc: "int[][]"
+    sources: "int[] list"
+    destinations: "int[] list"
+    probs: "float[] list"
+    prob_frame: "float[][]"
+
     def __init__(self, jump_mat, noji, nols):
-        self.jump_mat = jump_mat
+#        self.jump_mat = jump_mat
         self.noji = noji
         self.nols = nols
         self.jumps = 0
-        self.jump_mat_recalc = np.zeros((nols, nols))
+        self.jump_mat_recalc = np.zeros((nols, nols), dtype = int)
+        self.sources, self.destinations, self.probs = self.unpack_scipy_matrices( jump_mat )
+        self.prob_frame = np.zeros( (nols, nols) )
+
+    def unpack_scipy_matrices(self, jump_mat):
+        sources, destinations, probs = [], [], []
+        for j in jump_mat:
+#            sources.append( np.ascontiguousarray(j.row.copy()) )
+#            destinations.append( np.ascontiguousarray(j.col.copy()) )
+            sources.append( np.ascontiguousarray(j.col.copy()) )
+            destinations.append( np.ascontiguousarray(j.row.copy()) )
+            probs.append( np.ascontiguousarray(j.data.copy()) )
+        return sources, destinations, probs
+
+@boost
+def sweep_step(lattice : "uint8[]", sources : "int32[]", destinations : "int32[]", probs : "float[]", jump_mat_recalc : "int[][]"):
+    jumps = 0
+    start_protonation = np.copy(lattice)
+    no_of_pairs = len(sources)
+    for i in range(no_of_pairs):
+        index = np.random.randint(0, no_of_pairs)
+        s = sources[index]
+        d = destinations[index]
+        p = probs[index]
+        if lattice[s] != 0 and lattice[d] == 0 and start_protonation[s] != 0 and start_protonation[d] == 0 and np.random.uniform(0, 1) < p:
+            lattice[d] = lattice[s]
+            lattice[s] = 0
+            jumps += 1
+            jump_mat_recalc[d , s] += 1
+    return jumps
+
+def cmd_lmc_run(oxygen_trajectory, pbc, oxygen_lattice, helper, settings, md_timestep, output):
+    oxygen_trajectory = np.ascontiguousarray( oxygen_trajectory )
+    pbc = np.ascontiguousarray( pbc )
+    jump_mat_recalc = lmc_goes_brrr(oxygen_trajectory, pbc, np.linalg.inv(pbc), oxygen_lattice, helper.sources, helper.destinations, helper.probs, asdict(settings), md_timestep, output )
+    np.savetxt("jump_mat_sampled_from_lmc_run", jump_mat_recalc)
+    np.savetxt("overall_number_of_jumps", np.array([jump_mat_recalc.sum()]))
+    print("overall_number_of_jumps: " + str(jump_mat_recalc.sum()))
+
+@boost
+def lmc_one_reset(lattice : "uint8[]", sources : "int32[] list", destinations : "int32[] list", probs : "float[] list", reset_freq : "int", print_freq : "int"):
+    no_of_prints = int( reset_freq / print_freq )
+    lattice_over_time = np.zeros( ( no_of_prints, len(lattice) ), dtype = np.uint8 )
+    jumps = 0
+    jumps_over_time = np.zeros(no_of_prints, dtype = int)
+    jump_mat_recalc = np.zeros( (len(lattice), len(lattice)), dtype = int )
+    for sweep in range(reset_freq):
+        frame = sweep % len(sources)
+        jumps += sweep_step(lattice, sources[frame], destinations[frame], probs[frame], jump_mat_recalc)
+        jumps_over_time[sweep] = jumps
+        if sweep % print_freq == 0:
+            lattice_over_time[sweep, :] = lattice
+    return lattice_over_time, jumps_over_time, jump_mat_recalc
+
+@boost
+def calculate_and_print_observables( reset_no : "int", settings : "Dict[str,int]", md_timestep : "float", proton_trajectory : "float[][][]", lattice_over_time : "uint8[][]", jumps_over_time : "int[]" ):
+#    proton_trajectory = lattice_to_proton_positions_over_time( oxygen_trajectory, lattice_over_time, pbc, inv_pbc)
+#    msd = calculate_msd_averaged( proton_trajectory )
+    msd = calculate_msd( proton_trajectory )
+    auto_correlation = calculate_auto_correlation( lattice_over_time )
+    #
+    # currently broken!!!
+    #
+    sweep = reset_no * settings["reset_freq"]
+    sweeps = settings["sweeps"]
+    print_freq = settings["print_freq"]
+    output_string = print_observables( sweep, sweeps, print_freq, md_timestep, msd, jumps_over_time, auto_correlation)
+    #
+    return output_string
+
+@boost
+def write_xyz_format( oxygen_trajectory : "float[][][]", proton_trajectory: "float[][][]" , outpath : "str"):
+    f = open( outpath, "a+" )
+#    output_string = ""
+    no_of_atoms = oxygen_trajectory.shape[1] + proton_trajectory.shape[1]
+    for oxygen_frame, proton_frame in zip( oxygen_trajectory, proton_trajectory ):
+        f.write( f"{no_of_atoms:3d}\n\n" )
+        for O_position in oxygen_frame:
+            f.write( f"  O\t{O_position[0]:8f}\t{O_position[1]:8f}\t{O_position[2]:8f}\n" )
+        for H_position in proton_frame:
+            f.write( f"  H\t{H_position[0]:8f}\t{H_position[1]:8f}\t{H_position[2]:8f}\n" )
+    f.close()
+    return
 
 
-    def get_jump_probability(self, frame, lattice):
-        return np.copy(self.jump_mat[frame].todense())
+@boost
+def lmc_goes_brrr(oxygen_trajectory : "float[][][]", pbc : "float[][]", inv_pbc : "float[][]", oxygen_lattice : "uint8[]", sources : "int32[] list", destinations : "int32[] list", probs : "float[] list", settings : "Dict[str, int]", md_timestep : "float", outpath : "str"):
+    # unpack variables
+    equilibration_sweeps = settings["equilibration_sweeps"]
+    sweeps = settings["sweeps"]
+    reset_freq = settings["reset_freq"]
+    print_freq = settings["print_freq"]
+    xyz_print = settings["xyz_output"]
 
-
-    #def experimental_sweep(self, frame, lattice, rng):
-    def sweep(self, frame, lattice, rng):
-        # Dense matrix of jump probabilities
-        prob = self.get_jump_probability(frame, lattice)
-        # Random array of shape noli x noli (same as prob)
-        rand_mat1 = rng.uniform(0,1, self.nols **2).reshape(self.nols, self.nols)
-        prob[rand_mat1 >  prob] = 0    # prevent jumps based on their probability
-        prob[lattice != 0, :] = 0       # prevent jumps if destination site is occupied at the beginning of sweep
-        prob[:, lattice == 0] = 0       # prevent jumps if souce site is empty at the beginning of sweep
-
-        #L = [1,2,3,4,5,6]
-        #i = random.randrange(len(L)) # get random index
-        #L[i], L[-1] = L[-1], L[i]    # swap with the last element
-        #x = L.pop()                  # pop last element O(1)
-
-
-        destination, source = np.where(prob)
-        destination = list(destination)
-        source = list(source)
-        banned_destination =[]
-        banned_source=[]
-        while source:
-            i = rng.integers(len(source)) # get random index
-            source[i], source[-1] = source[-1], source[i]
-            destination[i], destination[-1] = destination[-1], destination[i]
-            final_source = source.pop()
-            final_destination = destination.pop()
-            if (final_source not in banned_source) and (final_destination not in banned_destination):
-                banned_destination.append(final_destination)
-                banned_source.append(final_source)
-                lattice[final_destination] = lattice[final_source]
-                lattice[final_source] = 0
-                self.jumps += 1
-                self.jump_mat_recalc[final_destination , final_source ] += 1
-            #else:
-            #     banned_destination.append(final_destination)
-            #     banned_source.append(final_source)
-#
-
-    def asweep(self, frame, lattice, rng):
-    #def sweep(self, frame, lattice, rng):
-        # Dense matrix of jump probabilities
-        prob = self.get_jump_probability(frame, lattice)
-        # Random array of shape noli x noli (same as prob)
-        rand_mat1 = rng.uniform(0,1, self.nols **2).reshape(self.nols, self.nols)
-        prob[rand_mat1 >  prob] = 0    # prevent jumps based on their probability
-        prob[lattice != 0, :] = 0       # prevent jumps if destination site is occupied at the beginning of sweep
-        prob[:, lattice == 0] = 0       # prevent jumps if souce site is empty at the beginning of sweep
-        
-        #breakpoint()
-        
-        for j in range(prob.shape[0]):
-         parallel_destinations= np.nonzero(prob[j,:])[0]
-         if len(parallel_destinations) > 1:
-            dest_index = rng.choice(parallel_destinations)
-            tmp = prob[j, dest_index] 
-            prob[j,:] = 0
-            prob[j, dest_index] = tmp
-        
-        #breakpoint()
-
-        destination, source = np.where(prob)
-        for specific_source in set(source):
-            possible_destinations = destination[ source == specific_source ]
-            final_destination = rng.choice( possible_destinations )
-            final_source = specific_source
-            lattice[final_destination] = lattice[specific_source]
-            lattice[specific_source] = 0
-            self.jumps += 1
-            self.jump_mat_recalc[final_destination , final_source ] += 1
-        #breakpoint()
-
-
-
-    def sweep_old(self, frame, lattice, rng):
-        start_lattice = np.copy(lattice)
-        jump_frame = self.jump_mat[frame]
-        destinations, sources, probabilities = jump_frame.row, jump_frame.col, jump_frame.data
-        no_of_pairs = len(probabilities)
-        for i in range(no_of_pairs):
-            random_pair = rng.integers(0, no_of_pairs)
-            destination, source, probability = destinations[random_pair], sources[random_pair], probabilities[random_pair]
-            if rng.uniform(0,1) < probability:
-                if lattice[destination] == 0 and lattice[source] != 0:
-                    if start_lattice[destination] == 0 and start_lattice[source] != 0:
-                        lattice[destination] = lattice[source]
-                        lattice[source] = 0
-                        self.jumps += 1
-                        self.jump_mat_recalc[destination , source ] += 1
-
-def cmd_lmc_run(oxygen_trajectory, oxygen_lattice, helper, observable_manager, settings, rng):
-    """Main function. """
-    verbose = settings.verbose
-
-    # Equilibration
-    for sweep in range(settings.equilibration_sweeps):
-        #if not settings.xyz_output:
-        #    if sweep % 1000 == 0:
-        #        print("# Equilibration sweep {}/{}".format(sweep, settings.equilibration_sweeps), end='\r', file=settings.output)
-        #breakpoint()
-        helper.sweep(sweep % oxygen_trajectory.shape[0], oxygen_lattice, rng)
-        #breakpoint()
-    if not settings.xyz_output:
-        observable_manager.print_observable_names()
-    #breakpoint()
-    # Run
-    observable_manager.start_timer()
-    for sweep in range(0, settings.sweeps):
+    jumps = 0
+    jump_mat_recalc = np.zeros( ( len( oxygen_lattice ), len( oxygen_lattice ) ), dtype = int )
+    eq_start = time.time()
+    for sweep in range(equilibration_sweeps):
+        if sweep % round(equilibration_sweeps / 10) == 0:
+            print(f"Equlibration sweep {sweep:d} / {equilibration_sweeps:d}, {jumps:d} so far")
         frame = sweep % oxygen_trajectory.shape[0]
-        if sweep % settings.reset_freq == 0:
-            observable_manager.reset_observables(frame)
+        jumps += sweep_step(oxygen_lattice, sources[frame], destinations[frame], probs[frame], jump_mat_recalc)
+    eq_end = time.time()
+    eq_time = eq_end - eq_start
+    print(f"Equilibrated over {equilibration_sweeps:d} sweeps with {jumps:d} jumps in {eq_time:f} s")
 
-        if sweep % settings.print_freq == 0:
-            if settings.xyz_output:
-                #breakpoint()
-                observable_manager.print_xyz(
-                    oxygen_trajectory[frame], oxygen_lattice, sweep
-                )
-            else:
-                observable_manager.calculate_displacement(frame)
-                observable_manager.calculate_msd()
-                observable_manager.calculate_auto_correlation()
-                observable_manager.print_observables(sweep)
+    ## timer
+    start_time = time.time()
+    no_of_resets = int(sweeps / reset_freq)
+    jump_mat_recalc = np.zeros( ( len( oxygen_lattice ), len( oxygen_lattice ) ), dtype = int )
+    for i in range(no_of_resets):
+        # do sweep and gather information on lattice and jumps
+        lattice_over_time, jumps_over_time, jump_mat_reset = lmc_one_reset(oxygen_lattice, sources, destinations, probs, reset_freq, print_freq)
+        jump_mat_recalc += jump_mat_reset
+        proton_trajectory = lattice_to_proton_positions_over_time( oxygen_trajectory, lattice_over_time, pbc, inv_pbc)
+        # create output, either by appending xyz-file or writing MSD to output file
+        if settings["xyz_output"]:
+            write_xyz_format( oxygen_trajectory, proton_trajectory, outpath ) # + f"_reset_{i:d}.xyz" )
+        else:
+            f = open( outpath, "a+")
+            output_string = calculate_and_print_observables( i, settings, md_timestep, proton_trajectory, lattice_over_time, jumps_over_time)
+            f.write(output_string)
+            f.close()
+        # print performance information
+        if (i / no_of_resets / 0.05) % 1 == 0:
+            seconds_per_reset = (time.time() - start_time) / (i+1)
+            time_left = seconds_per_reset * (no_of_resets - i)
+            jumps = np.sum( jump_mat_recalc )
+            print(f"Reset {i:d} / {no_of_resets:d}, {jumps:d} jumps so far.\tETA: {time_left:.3f} s")
 
-        # if settings.jumpmatrix_filename is not None:
-        #    helper.sweep_with_jumpmatrix(frame, oxygen_lattice)
-        #else:
-        #helper.sweep_old(frame, oxygen_lattice, rng)
-        helper.sweep(frame, oxygen_lattice, rng)
-        #print(oxygen_lattice)
-        if sweep % 100 == 0:
-            print(sweep, " / ", settings.sweeps, end = '\r')
+    sweep_time = time.time() - start_time
+    print(f"Finished {sweeps:d} sweeps in {sweep_time:f} s")
+    return jump_mat_recalc
 
-    # if settings.jumpmatrix_filename is not None:
-    #    np.savetxt(settings.jumpmatrix_filename, helper.jumpmatrix)
-    np.savetxt("jump_mat_sampled_from_lmc_run", helper.jump_mat_recalc)
-    np.savetxt("overall_number_of_jumps", np.array([helper.jump_mat_recalc.sum()]))
-    print("overall_number_of_jumps: " + str(helper.jump_mat_recalc.sum()))
+# transonic def lattice_to_proton_positions( float[][], uint8[] )
+@boost
+def lattice_to_proton_positions( oxygen_frame, lattice):
+    out = np.zeros( ( np.count_nonzero(lattice), 3 ) )
+    for o_ind, h_ind in enumerate(lattice):
+        if h_ind > 0:
+            out[h_ind-1] = oxygen_frame[o_ind]
+    return out
+
+# transonic def lattice_to_proton_positions_over_time( float[][][], uint8[][], float[][], float[][] )
+@boost
+def lattice_to_proton_positions_over_time( oxygen_trajectory, lattice_over_time, pbc, inv_pbc):
+    no_of_protons = np.count_nonzero(lattice_over_time[0, :])
+    out = np.zeros( ( len(lattice_over_time), no_of_protons, 3 ) )
+    start_positions = lattice_to_proton_positions( oxygen_trajectory[0, :, :], lattice_over_time[0, :] )
+    out[0, :, :] = start_positions
+    for frame in range( 1, len(lattice_over_time) ):
+        traj_frame = frame % len(oxygen_trajectory)
+        new_positions = lattice_to_proton_positions( oxygen_trajectory[traj_frame, :, :], lattice_over_time[frame] )
+        displacements = cc_dist( new_positions, start_positions, pbc, inv_pbc )
+        start_positions += displacements
+        out[ frame, :, :] = start_positions
+    return out
+
+# transonic def cc_dist(float64[][], float64[][], float64[][], float64[][])
+@boost
+def cc_dist( p1, p2, pbc_view, inv_pbc_view):
+    n1 = p1.shape[0]
+    n2 = p2.shape[0]
+    out = np.zeros( (n1, 3) )
+    for i in range(n1):
+        if p1[i, 0] is np.nan or p1[i, 1] is np.nan or p1[i, 2] is np.nan or p2[i, 0] is np.nan or p2[i, 1] is np.nan or p2[i, 2] is np.nan:
+            out[i, 0] = np.nan
+            out[i, 1] = np.nan
+            out[i, 2] = np.nan
+        else:
+            d1 = p1[i, 0] - p2[i, 0]
+            d2 = p1[i, 1] - p2[i, 1]
+            d3 = p1[i, 2] - p2[i, 2]
+
+            offset1 = round( inv_pbc_view[0, 0] * d1 + inv_pbc_view[1, 0] * d2 + inv_pbc_view[2, 0] * d3 )
+            offset2 = round( inv_pbc_view[0, 1] * d1 + inv_pbc_view[1, 1] * d2 + inv_pbc_view[2, 1] * d3 )
+            offset3 = round( inv_pbc_view[0, 2] * d1 + inv_pbc_view[1, 2] * d2 + inv_pbc_view[2, 2] * d3 )
+
+            out[i, 0] = d1 - pbc_view[0, 0] * offset1 - pbc_view[1, 0] * offset2 - pbc_view[2, 0] * offset3
+            out[i, 1] = d2 - pbc_view[0, 1] * offset1 - pbc_view[1, 1] * offset2 - pbc_view[2, 1] * offset3
+            out[i, 2] = d3 - pbc_view[0, 2] * offset1 - pbc_view[1, 2] * offset2 - pbc_view[2, 2] * offset3
+    return out
+
+@boost
+def calculate_msd( proton_positions : "float[][][]" ):
+    msd_xyz = np.mean( np.square( proton_positions - proton_positions[0, :, :] ) , axis = 1 )
+    return msd_xyz
+
+@boost
+def calculate_msd_averaged( proton_positions : "float[][][]" ):
+    l = proton_positions.shape[0]
+    msd_xyz = np.zeros( ( l, 3 ) )
+    for i in range(1, l):
+        start_positions = proton_positions[ :-i ]
+        end_positions = proton_positions[ i: ]
+        diff = end_positions - start_positions
+        squared_displacements = np.square( diff )
+        msd_xyz[i] = np.mean( np.mean( squared_displacements, axis = 0), axis = 0 )
+    return msd_xyz
+
+@boost
+def calculate_auto_correlation( lattice_over_time : "uint8[][]" ):
+    original_bonds = ( lattice_over_time == lattice_over_time[0] ) & ( lattice_over_time[0] > 0 )
+    return np.sum( original_bonds , axis = 1)
+
+@boost
+def print_observables(sweep : "int", sweeps : "int", print_freq : "int", md_timestep : "float", mean_square_displacement : "float[][]", jumps_over_time : "int[]", auto_correlation : "int[]"):
+    if mean_square_displacement.shape == (4, 3):
+        msd2, msd3, msd4 = mean_square_displacement[1:]
+        msd_higher = "{msd2.sum():18.8f} {msd3.sum():18.8f} {msd4.sum():18.8f}"
+    else:
+        msd_higher = ""
+
+    no_of_prints = auto_correlation.shape[0]
+    output_string = ""
+    for i in range(no_of_prints):
+        msd_x, msd_y, msd_z = mean_square_displacement[i, :]
+        autocorr = auto_correlation[i]
+        jumps = jumps_over_time[i]
+        current_sweep = sweep + i * print_freq #- no_of_prints * print_freq + i * print_freq
+        simulation_time = current_sweep * md_timestep
+        output_string += f"{current_sweep:10d} " +\
+                        f"{simulation_time:10f} " +\
+                        f"{msd_x:18.8f} " +\
+                        f"{msd_y:18.8f} " +\
+                        f"{msd_z:18.8f} " +\
+                        msd_higher +" "+\
+                        f"{autocorr:8d} " +\
+                        f"{jumps:10d} " +\
+                        f"{no_of_prints:d}"+\
+                        "\n"
+    return output_string
 
 def diff_coef(t, D, n):
     return 6 * D * t + n
@@ -264,15 +360,14 @@ def post_process_lmc(sweeps, reset_freq, print_freq, md_timestep_fs, path_lmc):
     fig.savefig("msd_lmc.png")
 
 
-def main():
-        #logging.basicConfig(filename='misp.log',  level=logging.DEBUG)
-        #logging.debug('command line:')
-#        logging.debug(sys.argv)
-        #logging.debug(readwrite.get_git_version())
-#        logging.debug(readwrite.log_git_version())
 
-        readwrite.start_logging()
-        logging.info(sys.argv)
+def main():
+        logging.basicConfig(filename='misp.log',  level=logging.DEBUG)
+        logging.debug('command line:')
+        logging.debug(sys.argv)
+        #logging.debug(readwrite.get_git_version())
+        logging.debug(readwrite.log_git_version())
+        
         readwrite.get_git_version()
         parser = argparse.ArgumentParser('This script simulates long range ion transfer. It requires a (possibly time dependet) grid and a (possibly time dependent) jump rate matrix. Standard cmd/lmc simulations are performed is parameter proton_propagation is set true. For this case pickle_jump_mat_proc.p is the jump matrix. Otherwise pickle_count_jump_mat.p is used to calculate ion transfer probabilities. ')
         parser.add_argument("path1", help="path to xyz trajec")
@@ -293,8 +388,7 @@ def main():
         parser.add_argument("--seed", type=int, help="Predetermined seed for reproducable runs")
         parser.add_argument("--write_xyz", help="print only msd or xyz trajectory, if True xyz trajectory is written" , action="store_true")
         parser.add_argument("--custom", help = "use custom_lmc.py to alter trajectory or jump probability", action = "store_true")
-        parser.add_argument("--clip", type = int)
-        parser.add_argument("--pickle_matrix", help = "pickled list of sparse matrices containing jump probabilities if proton_propagation is true or jump counts if proton_propagation is false")
+        parser.add_argument("--clip", help = "clip trajectory by discarding timesteps with a higher index")
 
         args = parser.parse_args()
         pbc_mat = np.loadtxt(args.pbc)
@@ -308,288 +402,70 @@ def main():
 #            from custom_lmc import prepare_custom_prob
 #            prepare_custom_prob(helper)
 
-        if args.pickle_matrix is None:
-            pickle_path = "pickle_jump_mat_proc.p" if args.proton_propagation is True else "pickle_count_jump_mat.p"
-        else:
-            pickle_path = args.pickle_matrix
+        coord_o = coord[:, np.isin(atom, args.lattice_atoms), :]
         if args.proton_propagation:
-            jump_mat = pickle.load(open( pickle_path, "rb" ))
+            jump_mat = pickle.load(open( "pickle_jump_mat_proc.p", "rb" ))
         else:
-            jump_mat = pickle.load(open( pickle_path, "rb"))
+            jump_mat = pickle.load(open( "pickle_count_jump_mat.p", "rb"))
             tmp = sparse.coo_matrix(jump_mat[0].shape)
             for i in range(len(jump_mat)):
                 tmp += jump_mat[i]
             tmp = tmp/ len(jump_mat)
             jump_mat = np.array([tmp.tocoo()])
-
+        
         if args.clip:
-            coord = coord[:args.clip, :, :]
-            jump_mat = jump_mat[:args.clip]
-        #coord_o = coord[:, atom == args.lattice_atoms, :]
-        coord_o = coord[:, np.isin(atom, args.lattice_atoms), :]
-        if len(jump_mat) !=  coord_o.shape[0]:
+            coord = coord[:int(args.clip)]
+            jump_mat = jump_mat[:int(args.clip)]
+        
+        if len(jump_mat) !=  coord.shape[0]:
             print("Warning! number of steps is not equal for jumpmatrix and trajectory")
         rng = np.random.default_rng(args.seed)   # If no seed is specified, default_rng(None) will use OS entropy
+        np.random.seed(args.seed)
 
+        nols = np.count_nonzero( np.isin(atom, args.lattice_atoms) ) #number of lattice sites
 
-        nols = coord_o.shape[1] #number of lattice sites
-
-        settings = SettingsManager(noji, nols, args.md_timestep, args.sweeps, args.equilibration_sweeps, args.verbose, args.write_xyz, args.print_freq, args.reset_freq, args.output, args.seed)
+        settings = SettingsManager(noji = noji,
+                                   nols = nols,
+                                   sweeps = args.sweeps,
+                                   equilibration_sweeps = args.equilibration_sweeps,
+                                   verbose = args.verbose,
+                                   xyz_output = args.write_xyz,
+                                   print_freq = args.print_freq,
+                                   reset_freq = args.reset_freq,
+                                   seed = args.seed if args.seed is not None else 0)
         #breakpoint()
         lattice = initialize_oxygen_lattice(nols, noji, rng)
         helper= Helper(jump_mat, noji, nols)
-        output = open(settings.output_path, "w+")
-        observable_manager =  ObservableManager(coord_o, lattice, nols, noji, settings.md_timestep, settings.sweeps, pbc_mat, helper, msd_mode=None, variance_per_proton=False, output=output)
+        if not settings.xyz_output:
+            output = open( args.output, "w+" )
+            print(
+                "#     Sweeps       Time                 MSD_x              MSD_y              "
+                "MSD_z Autocorr      Jumps   Sweeps/Sec",
+                file=output,
+            )
+            output.close()
 
-        cmd_lmc_run(coord_o, lattice, helper, observable_manager, settings, rng)
-        output.close()
+        cmd_lmc_run(coord_o, pbc_mat, lattice, helper, settings, args.md_timestep, args.output)
         if args.write_xyz:
-
             coord_lmc, atom_lmc = readwrite.easy_read("lmc.out", pbc_mat, False, False)    
             atom_cut = atom[np.isin(atom, args.lattice_atoms)]
             atom_cut = list(atom_cut) + ["H"] * noji 
             print(atom_cut, len(atom_cut), coord_lmc.shape)
             readwrite.easy_write(coord_lmc, np.array(atom_cut),"lmc_final.xyz")
         else:    
-            post_process_lmc(settings.sweeps, settings.reset_freq, settings.print_freq, settings.md_timestep, args.output)
+            post_process_lmc(settings.sweeps, settings.reset_freq, settings.print_freq, args.md_timestep, args.output)
 
-
-
-class ObservableManager:
-    def __init__(
-        self,
-        coord_o,
-        lattice,
-        nols,
-        noji,
-        md_timestep,
-        sweeps,
-        pbc,
-        helper,
-        msd_mode=None,
-        variance_per_proton=False,
-        output=sys.stdout,
-    ):
-        self.oxygen_trajectory = coord_o
-        self.oxygen_lattice = lattice
-        self.proton_number = noji
-        self.md_timestep = md_timestep
-        self.sweeps = sweeps
-        self.output = output
-        self.variance_per_proton = variance_per_proton
-        self.displacement = np.zeros((self.proton_number, 3))
-        self.proton_pos_snapshot = np.zeros((self.proton_number, 3))
-        self.oxygen_lattice_snapshot = np.array(lattice)
-        self.pbc = pbc
-        self.helper = helper
-        self.output = output
-
-        self.format_strings = [
-            "{:10d}",  # Sweeps
-            "{:>10}",  # Time steps
-            "{:18.8f}",  # MSD x component
-            "{:18.8f}",  # MSD y component
-            "{:18.8f}",  # MSD z component
-            "{:}",  # MSD higher order
-            "{:8d}",  # OH bond autocorrelation
-            "{:10d}",  # Number of proton jumps
-            "{:10.2f}",  # Simulation speed
-            "{:}",
-        ]  # Remaining time
-
-        if msd_mode == "higher_msd":
-            self.mean_square_displacement = np.zeros((4, 3))
-            self.msd_variance = np.zeros((4, 3))
-            self.calculate_msd = self.calculate_msd_higher_orders
-        else:
-            self.mean_square_displacement = np.zeros((1, 3))
-            self.msd_variance = np.zeros(3)
-            self.calculate_msd = self.calculate_msd_standard
-
-    def calculate_displacement(self, frame):
-        proton_pos_new = np.zeros(self.proton_pos_snapshot.shape)
-        for oxygen_index, proton_index in enumerate(self.oxygen_lattice):
-            # proton_pos_new = self.oxygen_trajectory[frame, self.oxygen_lattice =!= 0, :]
-            if proton_index > 0:
-                proton_pos_new[proton_index - 1] = self.oxygen_trajectory[
-                    frame, oxygen_index, :
-                ]
-        self.displacement += (
-            readwrite.pbc_dist2(self.proton_pos_snapshot, proton_pos_new, self.pbc)
-            .diagonal(0, 0, 1)
-            .T
+def print_observable_names(self):
+    if self.variance_per_proton:
+        print(
+            "#     Sweeps       Time              MSD_x              MSD_y              MSD_z "
+            "           MSD_x_var          MSD_y_var          MSD_z_var Autocorr      Jumps   "
+            "Sweeps/Sec",
+            file=self.output,
         )
-        self.proton_pos_snapshot[:] = proton_pos_new
-
-    def calculate_msd_standard(self):
-        self.mean_square_displacement[:] = (self.displacement ** 2).sum(
-            axis=0
-        ) / self.displacement.shape[0]
-        return self.mean_square_displacement
-
-    def calculate_msd_higher_orders(self):
-        self.mean_square_displacement[:] = 0
-        self.mean_square_displacement[0] = (self.displacement ** 2).sum(axis=0)
-        self.mean_square_displacement[1] = self.mean_square_displacement[0].sum() ** 0.5
-        self.mean_square_displacement[2] = self.mean_square_displacement[1].sum() ** 3
-        self.mean_square_displacement[3] = self.mean_square_displacement[1].sum() ** 4
-        self.mean_square_displacement /= self.displacement.shape[0]
-
-        return self.mean_square_displacement
-
-    def calculate_auto_correlation(self):
-        self.autocorrelation = np.logical_and(
-            self.oxygen_lattice == self.oxygen_lattice_snapshot,
-            self.oxygen_lattice != 0,
-        ).sum()
-
-    def reset_observables(self, frame):
-        for oxy_ind, prot_ind in enumerate(self.oxygen_lattice):
-            if prot_ind > 0:
-                self.proton_pos_snapshot[prot_ind - 1] = self.oxygen_trajectory[
-                    frame, oxy_ind, :
-                ]
-        self.oxygen_lattice_snapshot = np.copy(self.oxygen_lattice)
-        self.displacement[:] = 0
-        self.helper.jumps = 0
-
-    def print_observable_names(self):
-        if self.variance_per_proton:
-            print(
-                "#     Sweeps       Time              MSD_x              MSD_y              MSD_z "
-                "           MSD_x_var          MSD_y_var          MSD_z_var Autocorr      Jumps   "
-                "Sweeps/Sec",
-                file=self.output,
-            )
-        else:
-            print(
-                "#     Sweeps       Time                 MSD_x              MSD_y              "
-                "MSD_z Autocorr      Jumps   Sweeps/Sec",
-                file=self.output,
-            )
-            # file=settings.output)
-
-    def print_observables(self, sweep):
-        speed = float(sweep) / (time.time() - self.start_time)
-        if sweep != 0:
-            remaining_time_hours = int((self.sweeps - sweep) / speed / 3600)
-            remaining_time_min = int((((self.sweeps - sweep) / speed) % 3600) / 60)
-            remaining_time = "{:02d}:{:02d}".format(
-                remaining_time_hours, remaining_time_min
-            )
-        else:
-            remaining_time = "-01:-01"
-        if self.mean_square_displacement.shape == (4, 3):
-            msd2, msd3, msd4 = self.mean_square_displacement[1:]
-            msd_higher = "{:18.8f} {:18.8f} {:18.8f}".format(
-                msd2.sum(), msd3.sum(), msd4.sum()
-            )
-        else:
-            msd_higher = ""
-
-        jump_counter = self.helper.jumps
-
-        output = (
-            sweep,
-            sweep * self.md_timestep,
-            *self.mean_square_displacement[0],
-            msd_higher,
-            self.autocorrelation,
-            jump_counter,
-            speed,
-            remaining_time,
+    else:
+        print(
+            "#     Sweeps       Time                 MSD_x              MSD_y              "
+            "MSD_z Autocorr      Jumps   Sweeps/Sec",
+            file=self.output,
         )
-        with open("lmc.out", "a") as f:
-            for i, (fmt_str, value) in enumerate(zip(self.format_strings, output)):
-                print(fmt_str.format(value), end=" ", file=self.output)
-            print(file=self.output)
-        #with open("lmc.out", "a") as f:
-        #    for i, (fmt_str, value) in enumerate(zip(self.format_strings, output)):
-        #        print(fmt_str.format(value), end=" ", file=f)
-        #    print(file=f)
-
-        # for i, (fmt_str, value) in enumerate(zip(self.format_strings, output)):
-        #    print(fmt_str.format(value), end=" ", file=self.output)
-        #    #print(fmt_str.format(value), end=" ", file=settings.output)
-        # print(file=self.output)
-        # print(file=settings.output)
-
-    def start_timer(self):
-        self.start_time = time.time()
-
-    def print_observables_var(
-        self,
-        sweep,
-        autocorrelation,
-        helper,
-        timestep_fs,
-        start_time,
-        MSD,
-        msd_var,
-        msd2=None,
-        msd3=None,
-        msd4=None,
-    ):
-        speed = float(sweep) / (time.time() - start_time)
-        if sweep != 0:
-            remaining_time_hours = int((self.sweeps - sweep) / speed / 3600)
-            remaining_time_min = int((((self.sweeps - sweep) / speed) % 3600) / 60)
-            remaining_time = "{:02d}:{:02d}".format(
-                remaining_time_hours, remaining_time_min
-            )
-        else:
-            remaining_time = "-01:-01"
-        if (msd2, msd3, msd4) != (None, None, None):
-            msd_higher = "{:18.8f} {:18.8f} {:18.8f}".format(msd2, msd3, msd4)
-        else:
-            msd_higher = ""
-        # print(" {:>10} {:>10}    "
-        #      "{:18.8f} {:18.8f} {:18.8f} {:18.8f} {:18.8f} {:18.8f}  "
-        #      "{msd_higher:}  "
-        #      "{:8d} {:10d} {:10.2f} {:10}".format(sweep, sweep * timestep_fs,
-        #                                           MSD[0], MSD[1], MSD[2],
-        #                                           msd_var[0], msd_var[1], msd_var[2],
-        #                                           autocorrelation, helper.get_jumps(), speed,
-        #                                           remaining_time, msd_higher=msd_higher),
-        #      file=self.output)
-        # with open (proxy_file, 'a') as f:
-        # with open ("lmc.out", 'a') as f:
-        # print(" {:>10} {:>10}    "
-        #      "{:18.8f} {:18.8f} {:18.8f} {:18.8f} {:18.8f} {:18.8f}  "
-        ##      "{msd_higher:}  "
-        #      "{:8d} {:10d} {:10.2f} {:10}".format(sweep, sweep * timestep_fs,
-        #                                           MSD[0], MSD[1], MSD[2],
-        #                                           msd_var[0], msd_var[1], msd_var[2],
-        #                                           autocorrelation, helper.get_jumps(), speed,
-        #                                          remaining_time, msd_higher=msd_higher))
-        #     #file=f)
-
-        self.averaged_results[(sweep % self.reset_freq) / self.print_freq, 2:] += (
-            MSD[0],
-            MSD[1],
-            MSD[2],
-            autocorrelation,
-            helper.get_jumps(),
-        )
-
-    def print_xyz(self, Os, oxygen_lattice, sweep):
-        #breakpoint()
-        #breakpoint()
-        #print(oxygen_lattice, " in print step")
-        #proton_indices = np.where(oxygen_lattice > 0)[0]
-        sorter = np.argsort(oxygen_lattice)
-        sort1 = np.arange(np.count_nonzero(oxygen_lattice > 0)) + 1
-        proton_indices = sorter[np.searchsorted(oxygen_lattice, sort1, sorter=sorter)]
-        #print(proton_indices, " proton indices")
-        print(Os.shape[0] + self.proton_number, file=self.output)
-        print("Time:", sweep * self.md_timestep, file=self.output)
-        for i in range(Os.shape[0]):
-            print(
-                "O        {:20.8f}   {:20.8f}   {:20.8f}".format(*Os[i]),
-                file=self.output,
-            )
-        for index in proton_indices:
-            print(
-                "H        {:20.8f}   {:20.8f}   {:20.8f}".format(*Os[index]),
-                file=self.output,
-            )
