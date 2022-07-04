@@ -118,9 +118,10 @@ def lmc_one_reset(lattice : "uint8[]", sources : "int32[] list", destinations : 
     for sweep in range(reset_freq):
         frame = sweep % len(sources)
         jumps += sweep_step(lattice, sources[frame], destinations[frame], probs[frame], jump_mat_recalc)
-        jumps_over_time[sweep] = jumps
         if sweep % print_freq == 0:
-            lattice_over_time[sweep, :] = lattice
+            print_no = int(sweep/print_freq)
+            jumps_over_time[print_no] = jumps
+            lattice_over_time[print_no, :] = lattice
     return lattice_over_time, jumps_over_time, jump_mat_recalc
 
 @boost
