@@ -83,8 +83,8 @@ class Helper:
             probs.append( np.ascontiguousarray(j.data.copy()) )
         return sources, destinations, probs
 
-@boost
-def sweep_step(lattice : "uint8[]", sources : "int32[]", destinations : "int32[]", probs : "float[]", jump_mat_recalc : "int[][]"):
+#@boost
+def new_sweep_step(lattice : "uint8[]", sources : "int32[]", destinations : "int32[]", probs : "float[]", jump_mat_recalc : "int[][]"):
     jumps = 0
     start_protonation = np.copy(lattice)
     no_of_pairs = len(sources)
@@ -98,6 +98,35 @@ def sweep_step(lattice : "uint8[]", sources : "int32[]", destinations : "int32[]
             lattice[s] = 0
             jumps += 1
             jump_mat_recalc[d , s] += 1
+    return jumps
+
+@boost
+def sweep_step(lattice : "uint8[]", sources : "int32[]", destinations : "int32[]", probs : "float[]", jump_mat_recalc : "int[][]"):
+    rand_mat1 = np.random.uniform(0,1,len(probs))
+    #probs[rand_mat1 >  probs] = 0    # prevent jumps based on their probability
+    #probs[lattice[destinations] != 0] = 0       # prevent jumps if destination site is occupied at the beginning of sweep
+    #probs[lattice[sources] == 0] = 0       # prevent jumps if souce site is empty at the beginning of sweep
+    allowed_probs = (rand_mat1 <  probs) & (lattice[destinations] == 0) & (lattice[sources] != 0)
+
+    probs, destinations, sources = probs[allowed_probs], destinations[allowed_probs], sources[allowed_probs]
+    destination = list(destinations)
+    source = list(sources)
+    banned_destination =[]
+    banned_source=[]
+    jumps = 0
+    while source:
+        i = random.randrange(len(source)) # get random index
+        source[i], source[-1] = source[-1], source[i]
+        destination[i], destination[-1] = destination[-1], destination[i]
+        final_source = source.pop()
+        final_destination = destination.pop()
+        if (final_source not in banned_source) and (final_destination not in banned_destination):
+            banned_destination.append(final_destination)
+            banned_source.append(final_source)
+            lattice[final_destination] = lattice[final_source]
+            lattice[final_source] = 0
+            jumps += 1
+            jump_mat_recalc[final_destination , final_source ] += 1
     return jumps
 
 def cmd_lmc_run(oxygen_trajectory, pbc, oxygen_lattice, helper, settings, md_timestep, output):
