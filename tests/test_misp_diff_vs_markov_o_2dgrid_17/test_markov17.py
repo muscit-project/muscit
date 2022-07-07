@@ -37,6 +37,7 @@ def test_markov_5():
     def diff_coef(t, D, n):
         return 6* D *t + n 
     popt, pcov = curve_fit(diff_coef, msd[:,0], msd[:,1])
+    print(popt)
     assert popt == pytest.approx(np.array([ 5.73166667e-02, -2.18116972e-12]),0.000001 )
     #assert mat1 == pytest.approx(ref_mat[0].todense(), 0.01)
     os.chdir(start_dir)
