@@ -133,10 +133,11 @@ def sweep_step(lattice : "uint8[]", sources : "int32[]", destinations : "int32[]
 def cmd_lmc_run(oxygen_trajectory, pbc, oxygen_lattice, helper, settings, md_timestep, output):
     oxygen_trajectory = np.ascontiguousarray( oxygen_trajectory )
     pbc = np.ascontiguousarray( pbc )
-    jump_mat_recalc = lmc_goes_brrr(oxygen_trajectory, pbc, np.linalg.inv(pbc), oxygen_lattice, helper.sources, helper.destinations, helper.probs, asdict(settings), md_timestep, output )
+    msd_lmc, autocorr_lmc, jump_mat_recalc = lmc_goes_brrr(oxygen_trajectory, pbc, np.linalg.inv(pbc), oxygen_lattice, helper.sources, helper.destinations, helper.probs, asdict(settings), md_timestep, output )
     np.savetxt("jump_mat_sampled_from_lmc_run", jump_mat_recalc)
     np.savetxt("overall_number_of_jumps", np.array([jump_mat_recalc.sum()]))
     print("overall_number_of_jumps: " + str(jump_mat_recalc.sum()))
+    return msd_lmc, autocorr_lmc, jump_mat_recalc
 
 @boost
 def lmc_one_reset(lattice : "uint8[]", sources : "int32[] list", destinations : "int32[] list", probs : "float[] list", reset_freq : "int", print_freq : "int"):
@@ -153,22 +154,6 @@ def lmc_one_reset(lattice : "uint8[]", sources : "int32[] list", destinations : 
             jumps_over_time[print_no] = jumps
             lattice_over_time[print_no, :] = lattice
     return lattice_over_time, jumps_over_time, jump_mat_recalc
-
-@boost
-def calculate_and_print_observables( reset_no : "int", settings : "Dict[str,int]", md_timestep : "float", proton_trajectory : "float[][][]", lattice_over_time : "uint8[][]", jumps_over_time : "int[]" ):
-#    proton_trajectory = lattice_to_proton_positions_over_time( oxygen_trajectory, lattice_over_time, pbc, inv_pbc)
-    msd = calculate_msd_averaged( proton_trajectory )
-#    msd = calculate_msd( proton_trajectory )
-    auto_correlation = calculate_auto_correlation( lattice_over_time )
-    #
-    # currently broken!!!
-    #
-    sweep = reset_no * settings["reset_freq"]
-    sweeps = settings["sweeps"]
-    print_freq = settings["print_freq"]
-    output_string = print_observables( sweep, sweeps, print_freq, md_timestep, msd, jumps_over_time, auto_correlation)
-    #
-    return output_string
 
 @boost
 def write_xyz_format( oxygen_trajectory : "float[][][]", proton_trajectory: "float[][][]" , outpath : "str"):
@@ -207,6 +192,10 @@ def lmc_goes_brrr(oxygen_trajectory : "float[][][]", pbc : "float[][]", inv_pbc 
     print(f"Equilibrated over {equilibration_sweeps:d} sweeps with {jumps:d} jumps in {eq_time:f} s")
 
     ## timer
+    no_of_prints = int(reset_freq / print_freq)
+    time_lmc = np.arange( no_of_prints ) * md_timestep * print_freq
+    msd_xyz_averaged = np.zeros( (no_of_prints, 3) )
+    autocorr_averaged = np.zeros( no_of_prints )
     start_time = time.time()
     no_of_resets = int(sweeps / reset_freq)
     jump_mat_recalc = np.zeros( ( len( oxygen_lattice ), len( oxygen_lattice ) ), dtype = int )
@@ -219,8 +208,15 @@ def lmc_goes_brrr(oxygen_trajectory : "float[][][]", pbc : "float[][]", inv_pbc 
         if settings["xyz_output"]:
             write_xyz_format( oxygen_trajectory, proton_trajectory, outpath ) # + f"_reset_{i:d}.xyz" )
         else:
+            # Calculate observables (msd, autocorrelation)
+            msd = calculate_msd_averaged( proton_trajectory )
+            auto_correlation = calculate_auto_correlation( lattice_over_time )
+            # Add them to the overall average
+            msd_xyz_averaged += msd / no_of_resets
+            autocorr_averaged += auto_correlation / no_of_resets
+            # Create output string and write it to file
+            output_string = print_observables( i * reset_freq, sweeps, print_freq, md_timestep, msd, jumps_over_time, auto_correlation)
             f = open( outpath, "a+")
-            output_string = calculate_and_print_observables( i, settings, md_timestep, proton_trajectory, lattice_over_time, jumps_over_time)
             f.write(output_string)
             f.close()
         # print performance information
@@ -233,7 +229,7 @@ def lmc_goes_brrr(oxygen_trajectory : "float[][][]", pbc : "float[][]", inv_pbc 
 
     sweep_time = time.time() - start_time
     print(f"Finished {sweeps:d} sweeps in {sweep_time:f} s")
-    return jump_mat_recalc
+    return msd_xyz_averaged, autocorr_averaged, jump_mat_recalc
 
 # transonic def lattice_to_proton_positions( float[][], uint8[] )
 @boost
@@ -337,6 +333,50 @@ def print_observables(sweep : "int", sweeps : "int", print_freq : "int", md_time
 def diff_coef(t, D, n):
     return 6 * D * t + n
 
+
+def process_lmc_results(sweeps, reset_freq, print_freq, md_timestep_fs, msd_xyz, autocorrelation):
+    import matplotlib
+    import matplotlib.pyplot as plt
+    from scipy.optimize import curve_fit
+
+    # path_lmc = "lmc2.out"
+    number_of_intervals = int(sweeps / reset_freq)
+    length_of_interval = int(reset_freq / print_freq)
+    dt_lmc = md_timestep_fs/1000
+    
+    time_for_msd = np.arange( length_of_interval ) * print_freq * md_timestep_fs / 1000 # time written in lmc.out converted from fs to ps
+    msd_mean = np.sum(msd_xyz, axis = 1)
+    np.savetxt('msd_from_lmc.out', np.column_stack((time_for_msd, msd_mean)), header="t / ps\tMSD / A^2")
+    np.savetxt('msd_xyz_from_lmc.out', np.column_stack((time_for_msd, msd_xyz)), header="t / ps\tMSD / A^2")
+
+    # Create times for the MSD values and fit linear
+    x_lmc = time_for_msd
+    y_lmc = np.sum(msd_xyz, axis = 1)
+    print("diff coeff lmc in A**2/ps:")
+    len1 = x_lmc.shape[0]
+    fit_x_lmc = x_lmc[int(len1 * 0.2) : int(len1 * 0.7)]
+    fit_y_lmc = y_lmc[int(len1 * 0.2) : int(len1 * 0.7)]
+    popt_lmc, pcov = curve_fit(diff_coef, fit_x_lmc, fit_y_lmc)
+    print(popt_lmc[0])
+    
+    # Plot MSD and linear fit
+    fig, ax = plt.subplots()
+    ax.plot(x_lmc, y_lmc, label='cMD/LMC')
+    ax.plot(x_lmc, diff_coef(x_lmc, popt_lmc[0], popt_lmc[1]), label='fit cMD/LMC')
+    ax.set(xlabel='time [ps]', ylabel='MSD  [$\AA^2$]',
+           title='Comparison of the MSDs from AIMD and cMD/LMC')
+    legend = ax.legend(loc = 'best')
+    ax.grid()
+    fig.savefig("msd_lmc.png")
+
+    # Slice autocorrelation and save it as well
+    np.savetxt('autocorr_from_lmc.out', np.column_stack((time_for_msd, autocorrelation)), header="t / ps\tautocorrelation")
+
+    # For experiment's sake write D to file
+    with open("D_random", "a+") as f:
+        f.write(f"{popt_lmc[0]}\n")
+
+    fig.savefig("msd_lmc.png")
 
 def post_process_lmc(sweeps, reset_freq, print_freq, md_timestep_fs, path_lmc):
     import matplotlib
@@ -479,7 +519,7 @@ def main():
             )
         output.close()
 
-        cmd_lmc_run(coord_o, pbc_mat, lattice, helper, settings, args.md_timestep, args.output)
+        msd_lmc, autocorr_lmc, jump_mat_recalc = cmd_lmc_run(coord_o, pbc_mat, lattice, helper, settings, args.md_timestep, args.output)
         if args.write_xyz:
             coord_lmc, atom_lmc = readwrite.easy_read("lmc.out", pbc_mat, False, False)    
             atom_cut = atom[np.isin(atom, args.lattice_atoms)]
@@ -487,7 +527,7 @@ def main():
             print(atom_cut, len(atom_cut), coord_lmc.shape)
             readwrite.easy_write(coord_lmc, np.array(atom_cut),"lmc_final.xyz")
         else:    
-            post_process_lmc(settings.sweeps, settings.reset_freq, settings.print_freq, args.md_timestep, args.output)
+            process_lmc_results(settings.sweeps, settings.reset_freq, settings.print_freq, args.md_timestep, msd_lmc, autocorr_lmc)
 
 def print_observable_names(self):
     if self.variance_per_proton:
