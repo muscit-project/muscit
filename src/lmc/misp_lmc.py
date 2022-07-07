@@ -83,8 +83,8 @@ class Helper:
             probs.append( np.ascontiguousarray(j.data.copy()) )
         return sources, destinations, probs
 
-#@boost
-def new_sweep_step(lattice : "uint8[]", sources : "int32[]", destinations : "int32[]", probs : "float[]", jump_mat_recalc : "int[][]"):
+@boost
+def a_sweep_step(lattice : "uint8[]", sources : "int32[]", destinations : "int32[]", probs : "float[]", jump_mat_recalc : "int[][]"):
     jumps = 0
     start_protonation = np.copy(lattice)
     no_of_pairs = len(sources)
@@ -93,7 +93,8 @@ def new_sweep_step(lattice : "uint8[]", sources : "int32[]", destinations : "int
         s = sources[index]
         d = destinations[index]
         p = probs[index]
-        if lattice[s] != 0 and lattice[d] == 0 and start_protonation[s] != 0 and start_protonation[d] == 0 and np.random.uniform(0, 1) < p:
+#        if lattice[s] != 0 and lattice[d] == 0 and start_protonation[s] != 0 and start_protonation[d] == 0 and np.random.uniform(0, 1) < p:
+        if lattice[s] != 0 and lattice[d] == 0 and np.random.uniform(0, 1) < p:
             lattice[d] = lattice[s]
             lattice[s] = 0
             jumps += 1
@@ -156,8 +157,8 @@ def lmc_one_reset(lattice : "uint8[]", sources : "int32[] list", destinations : 
 @boost
 def calculate_and_print_observables( reset_no : "int", settings : "Dict[str,int]", md_timestep : "float", proton_trajectory : "float[][][]", lattice_over_time : "uint8[][]", jumps_over_time : "int[]" ):
 #    proton_trajectory = lattice_to_proton_positions_over_time( oxygen_trajectory, lattice_over_time, pbc, inv_pbc)
-#    msd = calculate_msd_averaged( proton_trajectory )
-    msd = calculate_msd( proton_trajectory )
+    msd = calculate_msd_averaged( proton_trajectory )
+#    msd = calculate_msd( proton_trajectory )
     auto_correlation = calculate_auto_correlation( lattice_over_time )
     #
     # currently broken!!!
@@ -223,11 +224,12 @@ def lmc_goes_brrr(oxygen_trajectory : "float[][][]", pbc : "float[][]", inv_pbc 
             f.write(output_string)
             f.close()
         # print performance information
-        if (i / no_of_resets / 0.05) % 1 == 0:
+        resets_to_give_info = set( round( j * no_of_resets / 20 ) for j in range(20) )
+        if i in resets_to_give_info:
             seconds_per_reset = (time.time() - start_time) / (i+1)
             time_left = seconds_per_reset * (no_of_resets - i)
             jumps = np.sum( jump_mat_recalc )
-            print(f"Reset {i:d} / {no_of_resets:d}, {jumps:d} jumps so far.\tETA: {time_left:.3f} s")
+            print(f"Reset {i+1:d} / {no_of_resets:d}, {jumps:d} jumps so far.\tETA: {time_left:.3f} s")
 
     sweep_time = time.time() - start_time
     print(f"Finished {sweeps:d} sweeps in {sweep_time:f} s")
@@ -442,11 +444,11 @@ def main():
                 tmp += jump_mat[i]
             tmp = tmp/ len(jump_mat)
             jump_mat = np.array([tmp.tocoo()])
-        
+
         if args.clip:
             coord = coord[:int(args.clip)]
             jump_mat = jump_mat[:int(args.clip)]
-        
+
         if len(jump_mat) !=  coord.shape[0]:
             print("Warning! number of steps is not equal for jumpmatrix and trajectory")
         rng = np.random.default_rng(args.seed)   # If no seed is specified, default_rng(None) will use OS entropy
@@ -466,14 +468,16 @@ def main():
         #breakpoint()
         lattice = initialize_oxygen_lattice(nols, noji, rng)
         helper= Helper(jump_mat, noji, nols)
+
+        # open output file, thus deleting old one
+        output = open( args.output, "w+" )
         if not settings.xyz_output:
-            output = open( args.output, "w+" )
             print(
                 "#     Sweeps       Time                 MSD_x              MSD_y              "
                 "MSD_z Autocorr      Jumps   Sweeps/Sec",
                 file=output,
             )
-            output.close()
+        output.close()
 
         cmd_lmc_run(coord_o, pbc_mat, lattice, helper, settings, args.md_timestep, args.output)
         if args.write_xyz:
