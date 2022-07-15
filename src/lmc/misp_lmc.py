@@ -109,6 +109,29 @@ def sweep_step(lattice : "uint8[]", sources : "int32[]", destinations : "int32[]
     #probs[lattice[sources] == 0] = 0       # prevent jumps if souce site is empty at the beginning of sweep
     allowed_probs = (rand_mat1 <  probs) & (lattice[destinations] == 0) & (lattice[sources] != 0)
 
+    potential_destinations, potential_sources = destinations[allowed_probs], sources[allowed_probs]
+    banned_destination =[]
+    banned_source=[]
+    jumps = 0
+    while potential_sources.size != 0:
+        i = random.randrange(len(potential_sources)) # get random index
+        source, destination = potential_sources[i], potential_destinations[i]
+        still_possible = np.logical_and(potential_sources != source, potential_destinations != destination)
+        potential_destinations, potential_sources = potential_destinations[still_possible], potential_sources[still_possible]
+        lattice[destination] = lattice[source]
+        lattice[source] = 0
+        jumps += 1
+        jump_mat_recalc[destination, source ] += 1
+    return jumps
+
+@boost
+def sweep_step_nocorrelation(lattice : "uint8[]", sources : "int32[]", destinations : "int32[]", probs : "float[]", jump_mat_recalc : "int[][]"):
+    rand_mat1 = np.random.uniform(0,1,len(probs))
+    #probs[rand_mat1 >  probs] = 0    # prevent jumps based on their probability
+    #probs[lattice[destinations] != 0] = 0       # prevent jumps if destination site is occupied at the beginning of sweep
+    #probs[lattice[sources] == 0] = 0       # prevent jumps if souce site is empty at the beginning of sweep
+    allowed_probs = (rand_mat1 <  probs) & (lattice[destinations] == 0) & (lattice[sources] != 0)
+
     probs, destinations, sources = probs[allowed_probs], destinations[allowed_probs], sources[allowed_probs]
     destination = list(destinations)
     source = list(sources)
