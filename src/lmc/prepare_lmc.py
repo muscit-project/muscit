@@ -50,7 +50,8 @@ class AnalysisHelper:
         self.lattice_no = np.count_nonzero(np.isin(traj.atomlabels, settings.lattice_types))
         self.lattice_traj = traj[::settings.speed, np.isin(traj.atomlabels, settings.lattice_types)]
         # pair identifiers as strings "{type1}->{type2}" in an array of shape (lattice_no, lattice_no)
-        self.pair_identifiers = np.array( [[source + '->' + destination for destination in self.lattice_traj.atomlabels] for source in self.lattice_traj.atomlabels] )
+#        self.pair_identifiers = np.array( [[source + '->' + destination for destination in self.lattice_traj.atomlabels] for source in self.lattice_traj.atomlabels] )
+        self.pair_identifiers = create_pair_identifiers(self.lattice_traj.atomlabels)
         # array of strings used to identify pairs; for n lattice_types there will be n^2 of these
         self.pair_strings = np.unique( self.pair_identifiers )
         # boolean arrays that can be used to extract data for one pair from an array of shape (lattice_no, lattice_no)
@@ -78,6 +79,8 @@ class AnalysisHelper:
 #        return itertools.product(self.lattice_types, self.lattice_types)
 
 
+def create_pair_identifiers(atomlabels):
+    return np.array( [[source + '->' + destination for destination in atomlabels] for source in atomlabels] )
 
 def main():
     parser = argparse.ArgumentParser()

@@ -29,7 +29,7 @@ def main():
         parser.add_argument("--jumping_ion_type", help="which atoms are transfered?", default = "H")
         parser.add_argument("--speed", help="every i-th step from trajec is used for neighbor mat", type = int, default=1)
         parser.add_argument("--angle_atoms", help="atoms for angle definiton", nargs = '+')
-        parser.add_argument("--normal_occupation", help="usual number of ions attached to each lattice point", nargs = '+', default = None)
+        parser.add_argument("--normal_occupation", help="usual number of ions attached to each lattice point", nargs = '+', default = None, type = int)
         parser.add_argument("--asymmetric", action="store_true", help = "calculate jump probabilities asymmetrically")
         parser.add_argument("--custom", action="store_true", help = "use custom_lmc.py for custom function prepare_trajectory")
 

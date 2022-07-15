@@ -460,21 +460,21 @@ def main():
         parser.add_argument("--seed", type=int, help="Predetermined seed for reproducable runs")
         parser.add_argument("--write_xyz", help="print only msd or xyz trajectory, if True xyz trajectory is written" , action="store_true")
         parser.add_argument("--custom", help = "use custom_lmc.py to alter trajectory or jump probability", action = "store_true")
-        parser.add_argument("--clip", help = "clip trajectory by discarding timesteps with a higher index")
+        parser.add_argument("--clip", help = "clip trajectory by discarding timesteps with a higher index", type = int)
+        parser.add_argument("--start_lattice", help = "lattice occupation to use as a starting point (formatted as 0s for unoccupied and numbers from 1 to noji for occupied)")
 
         args = parser.parse_args()
         pbc_mat = np.loadtxt(args.pbc)
         noji = args.noji
-        coord, atom = readwrite.easy_read(args.path1, pbc_mat, args.com, args.wrap)
+        traj = readwrite.easy_read(args.path1, pbc_mat, args.com, args.wrap)
         if args.custom:
             sys.path.append(os.getcwd())
             print(f"Loading function prepare_trajectory from {os.getcwd()}custom_lmc.py")
             from custom_lmc import prepare_trajectory
-            prepare_trajectory(coord, atom, pbc_mat)
+            prepare_trajectory(traj)
 #            from custom_lmc import prepare_custom_prob
 #            prepare_custom_prob(helper)
 
-        coord_o = coord[:, np.isin(atom, args.lattice_atoms), :]
         if args.proton_propagation:
             jump_mat = pickle.load(open( "pickle_jump_mat_proc.p", "rb" ))
         else:
@@ -485,16 +485,17 @@ def main():
             tmp = tmp/ len(jump_mat)
             jump_mat = np.array([tmp.tocoo()])
 
-        if args.clip:
-            coord = coord[:int(args.clip)]
-            jump_mat = jump_mat[:int(args.clip)]
 
-        if len(jump_mat) !=  coord.shape[0]:
+        if args.clip:
+            traj.coords = traj.coords[:args.clip]
+            jump_mat = jump_mat[:args.clip]
+        coord_o = traj.coords[:, np.isin(traj.atomlabels, args.lattice_atoms), :]
+        if len(jump_mat) !=  coord_o.shape[0]:
             print("Warning! number of steps is not equal for jumpmatrix and trajectory")
         rng = np.random.default_rng(args.seed)   # If no seed is specified, default_rng(None) will use OS entropy
         np.random.seed(args.seed)
 
-        nols = np.count_nonzero( np.isin(atom, args.lattice_atoms) ) #number of lattice sites
+        nols = np.count_nonzero( np.isin(traj.atomlabels, args.lattice_atoms) ) #number of lattice sites
 
         settings = SettingsManager(noji = noji,
                                    nols = nols,
@@ -506,8 +507,18 @@ def main():
                                    reset_freq = args.reset_freq,
                                    seed = args.seed if args.seed is not None else 0)
         #breakpoint()
-        lattice = initialize_oxygen_lattice(nols, noji, rng)
         helper= Helper(jump_mat, noji, nols)
+
+        if args.start_lattice is None:
+            lattice = initialize_oxygen_lattice(nols, noji, rng)
+        else:
+            lattice = np.loadtxt(args.start_lattice)
+            lattice = np.ascontiguousarray( lattice, dtype = np.uint8 )
+            if np.count_nonzero(lattice) != args.noji:
+                raise ValueError(f"Lattice contains {np.count_nonzero(lattice)} protons, but {noji} were specified as noji!")
+            if len(lattice) != nols:
+                raise ValueError(f"Lattice contains {len(lattice)} lattice sites, but trajectory contains {nols}!")
+
 
         # open output file, thus deleting old one
         output = open( args.output, "w+" )
@@ -521,9 +532,9 @@ def main():
 
         msd_lmc, autocorr_lmc, jump_mat_recalc = cmd_lmc_run(coord_o, pbc_mat, lattice, helper, settings, args.md_timestep, args.output)
         if args.write_xyz:
-            coord_lmc, atom_lmc = readwrite.easy_read("lmc.out", pbc_mat, False, False)    
-            atom_cut = atom[np.isin(atom, args.lattice_atoms)]
-            atom_cut = list(atom_cut) + ["H"] * noji 
+            coord_lmc, atom_lmc = readwrite.easy_read(args.output, pbc_mat, False, False)    
+            atom_cut = traj.atomlabels[np.isin(traj.atomlabels, args.lattice_atoms)]
+            atom_cut = list(atom_cut) + ["H"] * noji
             print(atom_cut, len(atom_cut), coord_lmc.shape)
             readwrite.easy_write(coord_lmc, np.array(atom_cut),"lmc_final.xyz")
         else:    
