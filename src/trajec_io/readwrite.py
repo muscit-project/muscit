@@ -110,6 +110,10 @@ def log_git_version():
     logging.info("# Commit Date: {}".format(commit_date))
     logging.info("# Commit Message: {}".format(commit_message))
 
+def log_input(arg_list):
+    logging.info(" ".join(arg_list))
+    with open("misp_commands.txt", "a+") as mc:
+        mc.write(" ".join(arg_list) + "\n")
 
 def relative_pbc(coord, pbc_mat):
     inv_pbc_mat = np.linalg.inv(pbc_mat)

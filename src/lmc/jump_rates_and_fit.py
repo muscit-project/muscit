@@ -24,7 +24,7 @@ def main():
         #print(sys.argv)
         #readwrite.get_git_version()
         readwrite.start_logging()
-        logging.info(sys.argv)
+        readwrite.log_input(sys.argv)
         parser = argparse.ArgumentParser('This script calculates the jump rate function from the output of the  evaluate_jumps_on_grid script. If --fit is chosen, a fermi fit to the jump rate funtion is applied')
         parser.add_argument("path", help="path to trajek")
         parser.add_argument("pbc_path", help="path to pbc numpy mat")

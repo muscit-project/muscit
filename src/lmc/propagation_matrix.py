@@ -17,7 +17,7 @@ def main():
         #print(sys.argv)
         #readwrite.get_git_version()
         readwrite.start_logging()
-        logging.info(sys.argv)
+        readwrite.log_input(sys.argv)
         parser = argparse.ArgumentParser(description='This executable calculates a jump probability matrix (pickle_jump_mat_proc.p). The ij-th  matrix element correpond to probability for a transfer/jump of an ion betweent lattice sites i and j.  This scripts requires the output of the script evaluate_jumps_on_grid and the fermi_param file created by the script  adv_calc_jump_rate using the option --fit. fermi_param file contains only the three parameters for a fermi function.')
         parser.add_argument("path1", help="path to xyz trajec")
         parser.add_argument("pbc_path", help="path to pbc numpy mat")

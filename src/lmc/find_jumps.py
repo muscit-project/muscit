@@ -15,7 +15,7 @@ def main():
 #        logging.basicConfig(filename='misp.log', level=logging.DEBUG)
 #        logging.debug('command line:')
         readwrite.start_logging()
-        logging.info(sys.argv)
+        readwrite.log_input(sys.argv)
         #logging.debug(readwrite.get_git_version())
         #logging.debug(readwrite.log_git_version())
         #print("command line:")

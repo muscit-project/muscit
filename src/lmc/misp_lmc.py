@@ -457,13 +457,15 @@ def post_process_lmc(sweeps, reset_freq, print_freq, md_timestep_fs, path_lmc):
 
 
 def main():
-        logging.basicConfig(filename='misp.log',  level=logging.DEBUG)
-        logging.debug('command line:')
-        logging.debug(sys.argv)
+        readwrite.start_logging()
+        readwrite.log_input(sys.argv)
+        #logging.basicConfig(filename='misp.log',  level=logging.DEBUG)
+        #logging.debug('command line:')
+        #logging.debug(sys.argv)
         #logging.debug(readwrite.get_git_version())
-        logging.debug(readwrite.log_git_version())
+        #logging.debug(readwrite.log_git_version())
         
-        readwrite.get_git_version()
+        #readwrite.get_git_version()
         parser = argparse.ArgumentParser('This script simulates long range ion transfer. It requires a (possibly time dependet) grid and a (possibly time dependent) jump rate matrix. Standard cmd/lmc simulations are performed is parameter proton_propagation is set true. For this case pickle_jump_mat_proc.p is the jump matrix. Otherwise pickle_count_jump_mat.p is used to calculate ion transfer probabilities. ')
         parser.add_argument("path1", help="path to xyz trajec")
         parser.add_argument("pbc", help="path to pbc numpy mat")
