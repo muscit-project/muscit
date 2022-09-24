@@ -84,7 +84,8 @@ class Helper:
         return sources, destinations, probs
 
 @boost
-def a_sweep_step(lattice : "uint8[]", sources : "int32[]", destinations : "int32[]", probs : "float[]", jump_mat_recalc : "int[][]"):
+def sweep_step(lattice : "uint8[]", sources : "int32[]", destinations : "int32[]", probs : "float[]", jump_mat_recalc : "int[][]", seed : "int"):
+    np.random.seed(seed)
     jumps = 0
     start_protonation = np.copy(lattice)
     no_of_pairs = len(sources)
@@ -102,7 +103,8 @@ def a_sweep_step(lattice : "uint8[]", sources : "int32[]", destinations : "int32
     return jumps
 
 @boost
-def sweep_step(lattice : "uint8[]", sources : "int32[]", destinations : "int32[]", probs : "float[]", jump_mat_recalc : "int[][]"):
+def a_sweep_step(lattice : "uint8[]", sources : "int32[]", destinations : "int32[]", probs : "float[]", jump_mat_recalc : "int[][]", seed : "int"):
+    np.random.seed(seed)
     rand_mat1 = np.random.uniform(0,1,len(probs))
     #probs[rand_mat1 >  probs] = 0    # prevent jumps based on their probability
     #probs[lattice[destinations] != 0] = 0       # prevent jumps if destination site is occupied at the beginning of sweep
@@ -163,7 +165,7 @@ def cmd_lmc_run(oxygen_trajectory, pbc, oxygen_lattice, helper, settings, md_tim
     return msd_lmc, autocorr_lmc, jump_mat_recalc
 
 @boost
-def lmc_one_reset(lattice : "uint8[]", sources : "int32[] list", destinations : "int32[] list", probs : "float[] list", reset_freq : "int", print_freq : "int"):
+def lmc_one_reset(lattice : "uint8[]", sources : "int32[] list", destinations : "int32[] list", probs : "float[] list", reset_freq : "int", print_freq : "int", seed : "int"):
     no_of_prints = int( reset_freq / print_freq )
     lattice_over_time = np.zeros( ( no_of_prints, len(lattice) ), dtype = np.uint8 )
     jumps = 0
@@ -171,7 +173,7 @@ def lmc_one_reset(lattice : "uint8[]", sources : "int32[] list", destinations : 
     jump_mat_recalc = np.zeros( (len(lattice), len(lattice)), dtype = int )
     for sweep in range(reset_freq):
         frame = sweep % len(sources)
-        jumps += sweep_step(lattice, sources[frame], destinations[frame], probs[frame], jump_mat_recalc)
+        jumps += sweep_step(lattice, sources[frame], destinations[frame], probs[frame], jump_mat_recalc, seed + sweep)
         if sweep % print_freq == 0:
             print_no = int(sweep/print_freq)
             jumps_over_time[print_no] = jumps
@@ -201,6 +203,7 @@ def lmc_goes_brrr(oxygen_trajectory : "float[][][]", pbc : "float[][]", inv_pbc 
     reset_freq = settings["reset_freq"]
     print_freq = settings["print_freq"]
     xyz_print = settings["xyz_output"]
+    seed = settings["seed"]
 
     jumps = 0
     jump_mat_recalc = np.zeros( ( len( oxygen_lattice ), len( oxygen_lattice ) ), dtype = int )
@@ -209,7 +212,7 @@ def lmc_goes_brrr(oxygen_trajectory : "float[][][]", pbc : "float[][]", inv_pbc 
         if sweep % round(equilibration_sweeps / 10) == 0:
             print(f"Equlibration sweep {sweep:d} / {equilibration_sweeps:d}, {jumps:d} so far")
         frame = sweep % oxygen_trajectory.shape[0]
-        jumps += sweep_step(oxygen_lattice, sources[frame], destinations[frame], probs[frame], jump_mat_recalc)
+        jumps += sweep_step(oxygen_lattice, sources[frame], destinations[frame], probs[frame], jump_mat_recalc, sweep - equilibration_sweeps)
     eq_end = time.time()
     eq_time = eq_end - eq_start
     print(f"Equilibrated over {equilibration_sweeps:d} sweeps with {jumps:d} jumps in {eq_time:f} s")
@@ -224,7 +227,7 @@ def lmc_goes_brrr(oxygen_trajectory : "float[][][]", pbc : "float[][]", inv_pbc 
     jump_mat_recalc = np.zeros( ( len( oxygen_lattice ), len( oxygen_lattice ) ), dtype = int )
     for i in range(no_of_resets):
         # do sweep and gather information on lattice and jumps
-        lattice_over_time, jumps_over_time, jump_mat_reset = lmc_one_reset(oxygen_lattice, sources, destinations, probs, reset_freq, print_freq)
+        lattice_over_time, jumps_over_time, jump_mat_reset = lmc_one_reset(oxygen_lattice, sources, destinations, probs, reset_freq, print_freq, seed + i * reset_freq)
         jump_mat_recalc += jump_mat_reset
         proton_trajectory = lattice_to_proton_positions_over_time( oxygen_trajectory, lattice_over_time, pbc, inv_pbc)
         # create output, either by appending xyz-file or writing MSD to output file
@@ -530,7 +533,7 @@ def main():
                                    xyz_output = args.write_xyz,
                                    print_freq = args.print_freq,
                                    reset_freq = args.reset_freq,
-                                   seed = args.seed if args.seed is not None else 0)
+                                   seed = args.seed if args.seed is not None else random.randint(1, 1E6))
         #breakpoint()
         helper= Helper(jump_mat, noji, nols)
 
