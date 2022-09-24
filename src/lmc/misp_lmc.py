@@ -84,7 +84,7 @@ class Helper:
         return sources, destinations, probs
 
 @boost
-def a_sweep_step(lattice : "uint8[]", sources : "int32[]", destinations : "int32[]", probs : "float[]", jump_mat_recalc : "int[][]"):
+def sweep_step(lattice : "uint8[]", sources : "int32[]", destinations : "int32[]", probs : "float[]", jump_mat_recalc : "int[][]"):
     jumps = 0
     start_protonation = np.copy(lattice)
     no_of_pairs = len(sources)
@@ -102,7 +102,7 @@ def a_sweep_step(lattice : "uint8[]", sources : "int32[]", destinations : "int32
     return jumps
 
 @boost
-def sweep_step(lattice : "uint8[]", sources : "int32[]", destinations : "int32[]", probs : "float[]", jump_mat_recalc : "int[][]"):
+def a_sweep_step(lattice : "uint8[]", sources : "int32[]", destinations : "int32[]", probs : "float[]", jump_mat_recalc : "int[][]"):
     rand_mat1 = np.random.uniform(0,1,len(probs))
     #probs[rand_mat1 >  probs] = 0    # prevent jumps based on their probability
     #probs[lattice[destinations] != 0] = 0       # prevent jumps if destination site is occupied at the beginning of sweep
@@ -356,6 +356,12 @@ def print_observables(sweep : "int", sweeps : "int", print_freq : "int", md_time
 def diff_coef(t, D, n):
     return 6 * D * t + n
 
+def get_r2(x_data, y_data, fit_function, fit_parameters):
+    residuals = y_data - fit_function(x_data, *fit_parameters)
+    ss_res = np.sum(residuals**2)
+    ss_tot = np.sum((y_data-np.mean(y_data))**2)
+    r_squared = 1 - (ss_res / ss_tot)
+    return r_squared
 
 def process_lmc_results(sweeps, reset_freq, print_freq, md_timestep_fs, msd_xyz, autocorrelation):
     import matplotlib
@@ -380,6 +386,7 @@ def process_lmc_results(sweeps, reset_freq, print_freq, md_timestep_fs, msd_xyz,
     fit_x_lmc = x_lmc[int(len1 * 0.2) : int(len1 * 0.7)]
     fit_y_lmc = y_lmc[int(len1 * 0.2) : int(len1 * 0.7)]
     popt_lmc, pcov = curve_fit(diff_coef, fit_x_lmc, fit_y_lmc)
+    r2_lmc = get_r2(fit_x_lmc, fit_y_lmc, diff_coef, popt_lmc)
     print(popt_lmc[0])
     
     # Plot MSD and linear fit
@@ -397,7 +404,14 @@ def process_lmc_results(sweeps, reset_freq, print_freq, md_timestep_fs, msd_xyz,
 
     # For experiment's sake write D to file
     with open("D_random", "a+") as f:
-        f.write(f"{popt_lmc[0]}\n")
+        f.write(f"{popt_lmc[0]} ({r2_lmc})\n")
+    with open("D_xyz", "a+") as f:
+        for i in range(3):
+            fit_y_lmc_xyz = msd_xyz[int(len1 * 0.2) : int(len1 * 0.7), i]
+            popt_lmc_xyz, pcov_xyz = curve_fit(diff_coef, fit_x_lmc, fit_y_lmc_xyz)
+            D_xyz = popt_lmc_xyz[0]
+            f.write(f"{D_xyz} ")
+        f.write("\n")
 
     fig.savefig("msd_lmc.png")
 
