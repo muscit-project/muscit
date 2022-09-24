@@ -13,6 +13,7 @@ from scipy.sparse import coo_matrix
 
 from trajec_io import readwrite
 from lmc.prepare_lmc import Settings, AnalysisHelper, boolean_string, create_pair_identifiers
+from lmc.find_jumps import neighbors_in_traj
 
 #def boolean_string(s):
 #    if s not in {"False", "True"}:
@@ -43,6 +44,7 @@ def main():
         parser.add_argument("--fermi_out", help="path to store fitted fermi parameters in", default = "fermi_param")
         parser.add_argument("--distances_out", help = "path to store distances (as pickle object) in", default = "pickle_dist_mat_angle.p" )
         parser.add_argument("--fit",  action="store_true", help="fit probability curve")
+        parser.add_argument("--clip", help = "clip trajectory to an interval", type = int, nargs = 2)
 
         args = parser.parse_args()
         # Load pbc, trajectory and fixed lattice coordinates if supplied
@@ -59,6 +61,8 @@ def main():
             from custom_lmc import prepare_trajectory
             prepare_trajectory(traj)
 
+        if args.clip:
+            traj = traj[args.clip[0] : args.clip[1]]
         # construct AnalysisHelper and calculate everything else from it
         analysishelper = AnalysisHelper(traj, settings)
         #jump_info = find_jumps( analysishelper, fixed_lattice )
@@ -119,6 +123,7 @@ def find_jumpprobs_and_fit(analysishelper, neighborfile = "jumping_ion_neighbors
     # get protonation states
     try:
         ion_neighbors = np.load(neighborfile)
+        ion_neighbors = ion_neighbors[:analysishelper.frame_no, :]
     except (FileNotFoundError, TypeError):
         ion_neighbors = neighbors_in_traj(analysishelper)
     protonations = neighbors_to_protonation(ion_neighbors, analysishelper)

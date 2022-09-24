@@ -32,6 +32,7 @@ def main():
         parser.add_argument("--normal_occupation", help="usual number of ions attached to each lattice point", nargs = '+', default = None, type = int)
         parser.add_argument("--asymmetric", action="store_true", help = "calculate jump probabilities asymmetrically")
         parser.add_argument("--custom", action="store_true", help = "use custom_lmc.py for custom function prepare_trajectory")
+        parser.add_argument("--clip", help = "clip trajectory to an interval", type = int, nargs = 2)
 
         args = parser.parse_args()
 
@@ -48,6 +49,8 @@ def main():
             from custom_lmc import prepare_trajectory
             prepare_trajectory(traj)
 
+        if args.clip:
+            traj = traj[args.clip[0] : args.clip[1]]
         # construct AnalysisHelper and calculate everything else from it
         analysishelper = AnalysisHelper(traj, settings)
         #jump_info = find_jumps( analysishelper, fixed_lattice )
