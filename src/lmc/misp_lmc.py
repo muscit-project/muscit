@@ -358,6 +358,9 @@ def print_observables(sweep : "int", sweeps : "int", print_freq : "int", md_time
 def diff_coef(t, D, n):
     return 6 * D * t + n
 
+def diff_coef_2D(t, D, n):
+    return 2 * D * t + n
+
 def get_r2(x_data, y_data, fit_function, fit_parameters):
     residuals = y_data - fit_function(x_data, *fit_parameters)
     ss_res = np.sum(residuals**2)
@@ -410,7 +413,7 @@ def process_lmc_results(sweeps, reset_freq, print_freq, md_timestep_fs, msd_xyz,
     with open("D_xyz", "a+") as f:
         for i in range(3):
             fit_y_lmc_xyz = msd_xyz[int(len1 * 0.2) : int(len1 * 0.7), i]
-            popt_lmc_xyz, pcov_xyz = curve_fit(diff_coef, fit_x_lmc, fit_y_lmc_xyz)
+            popt_lmc_xyz, pcov_xyz = curve_fit(diff_coef_2D, fit_x_lmc, fit_y_lmc_xyz)
             D_xyz = popt_lmc_xyz[0]
             f.write(f"{D_xyz} ")
         f.write("\n")
