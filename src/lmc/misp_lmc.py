@@ -573,11 +573,22 @@ def main():
 
         msd_lmc, autocorr_lmc, jump_mat_recalc = cmd_lmc_run(coord_o, pbc_mat, lattice, helper, settings, args.md_timestep, args.output)
         if args.write_xyz:
-            coord_lmc, atom_lmc = readwrite.easy_read(args.output, pbc_mat, False, False)    
-            atom_cut = traj.atomlabels[np.isin(traj.atomlabels, args.lattice_atoms)]
-            atom_cut = list(atom_cut) + ["H"] * noji
-            print(atom_cut, len(atom_cut), coord_lmc.shape)
-            readwrite.easy_write(coord_lmc, np.array(atom_cut),"lmc_final.xyz")
+            # Take non-H atoms from original trajectory
+            coord_lmc, atom_lmc = readwrite.easy_read(args.output, pbc_mat, False, False)
+            coords_not_H = traj.coords[:, traj.atomlabels != "H", :]
+            atomlabels_not_H = traj.atomlabels[traj.atomlabels != "H"]
+            # Take Hs from lmc run
+            coords_lmc_H = coord_lmc[:, atom_lmc == "H", :]
+            atomlabels_lmc_H = atom_lmc[atom_lmc == "H"]
+            # Put both trajectories together and save
+            ultimate_lmc_coords = np.hstack( (coords_not_H, coords_lmc_H) )
+            ultimate_lmc_atomlabels = np.append( atomlabels_not_H, atomlabels_lmc_H )
+            readwrite.easy_write(ultimate_lmc_coords, ultimate_lmc_atomlabels, "lmc_final.xyz")
+
+            #atom_cut = traj.atomlabels[np.isin(traj.atomlabels, args.lattice_atoms)]
+            #atom_cut = list(atom_cut) + ["H"] * noji
+            #print(atom_cut, len(atom_cut), coord_lmc.shape)
+            #readwrite.easy_write(coord_lmc, np.array(atom_cut),"lmc_final.xyz")
         else:    
             process_lmc_results(settings.sweeps, settings.reset_freq, settings.print_freq, args.md_timestep, msd_lmc, autocorr_lmc)
 
