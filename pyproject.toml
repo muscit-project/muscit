@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "misp"
-version = "0.0.1"
+version = "0.2"
 authors = [
   { name="Christian Dressler", email="ch.dressler@outlook.com" },
   { name="Johnny Alexander Jimenez Siegert", email="jajs@gmx.de" },
