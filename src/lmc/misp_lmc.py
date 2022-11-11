@@ -211,7 +211,7 @@ def lmc_goes_brrr(oxygen_trajectory : "float[][][]", pbc : "float[][]", inv_pbc 
         if sweep % round(equilibration_sweeps / 10) == 0:
             print(f"Equlibration sweep {sweep:d} / {equilibration_sweeps:d}, {jumps:d} so far")
         frame = sweep % oxygen_trajectory.shape[0]
-        jumps += sweep_step(oxygen_lattice, sources[frame], destinations[frame], probs[frame], jump_mat_recalc, sweep - equilibration_sweeps)
+        jumps += sweep_step(oxygen_lattice, sources[frame], destinations[frame], probs[frame], jump_mat_recalc, seed + sweep)
     eq_end = time.time()
     eq_time = eq_end - eq_start
     print(f"Equilibrated over {equilibration_sweeps:d} sweeps with {jumps:d} jumps in {eq_time:f} s")
