@@ -1,0 +1,1503 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb}
+\usepackage{bm}
+\usepackage[utf8]{inputenc}
+\usepackage{placeins}
+\usepackage{authblk}
+\usepackage{subscript}
+
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage[%
+ top=1.5cm,%
+ bottom=1.5cm,%
+ inner=1.5cm,%
+ outer=1.5cm,%
+ ]{geometry}
+\usepackage{subcaption}
+\usepackage[table]{xcolor}
+\usepackage{soul}
+
+
+
+
+
+
+\newcommand*{\remark}[1]{\texttt{\emph{#1}}}
+\newcommand{\angstrom}{\textup{\AA}}
+
+\let\vaccent=\v %
+\renewcommand{\v}[1]{\ensuremath{\mathbf{#1}}} %
+\newcommand{\gv}[1]{\ensuremath{\bm{#1}}} %
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}} %
+\newcommand{\ket}[1]{| #1 \rangle} %
+\newcommand{\bra}[1]{\langle #1 |} %
+\newcommand{\braket}[2]{\langle #1 \vphantom{#2} |  #2 \vphantom{#1} \rangle} %
+\newcommand{\sss}{\scriptscriptstyle} %
+\newcommand{\f}[2]{\frac{#1}{#2}} %
+\newcommand{\zth}{{\sss (0)}} %
+\newcommand{\fst}{{\sss (1)}} %
+\newcommand{\snd}{{\sss (2)}} %
+\newcommand{\abs}[1]{\left| #1 \right|} %
+\newcommand{\mred}[1]{\textcolor{red}{#1}} %
+
+
+
+\newcommand{\hpb}[1]{\textit{p}-#1PA-HPB}
+\newcommand{\hpbl}[1]{#1\-(\textit{p}-phos\-pho\-na\-to\-phe\-nyl)\-ben\-zene}
+\newcommand{\naf}[0]{Nafion\textsuperscript{\textregistered}}
+\newcommand{\pvpa}[0]{poly\-[vi\-nyl phos\-pho\-nic acid]}
+
+
+\newcommand{\mypath}{./images/}
+
+\newcounter{verbindungen} 
+\newcommand{\Verb}[1]{\refstepcounter{verbindungen}\label{#1}}
+\newcommand{\vref}[1]{{\bf \ref{#1}}}
+
+
+
+\begin{document}
+
+
+
+
+
+
+
+%
+\title{Documentation of DEVIS}
+
+%
+%
+%
+%
+ \date{\today}                     %
+%
+%
+
+
+\maketitle
+
+%
+%
+\begin{center} 
+%
+%
+%
+%
+\vspace{1cm}
+%
+{ \large building blocks for \textbf{DEV}eloping your own trajectory analys\textbf{IS} tools}
+
+
+\vspace{3cm}
+\begin{itemize}
+%
+%
+%
+ \item python toolbox and code snippets for creation of own trajectory analyzing scripts
+\end{itemize}
+
+\end{center}
+\newpage
+
+
+
+ \newpage
+\newpage
+
+
+
+
+ \newpage
+
+
+\tableofcontents 
+
+\newpage
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+
+
+
+\section{Documentation of   muscit functions}
+%
+%
+%
+
+%
+%
+%
+%
+%
+
+% %
+% 
+% 
+% \subsection{How to update the code`}
+% \begin{itemize}
+% \item ( git status )
+% \item ( git commit -am"****")
+% \item git pull origin*** master***
+% \item please execute the following command after each pull request from the remote repository: python setup install (very important  for update of current  git commit   in output file)
+% \end{itemize}
+
+\subsection{Overall Idea/ General Concept}
+
+The muscit python repository is created in order to fulfill two purposes:
+ \begin{itemize}
+  \item providing a framework for general processing of trajectories for the calculation of RDFs, MSD, ... 
+  \item investigation of ion conduction mechanism (via the discretisation of the ion movement on a predefined lattice
+ \end{itemize}
+
+ 
+ 
+
+
+\section{General framework for processing of trajectories}
+
+\subsection{Overall Idea/ General Concept}
+In order provide an efficient framework for   the post-processing of trajectories, we convert the  trajectory ( in .xyz format) into a  NumPy .npz data archive format file.
+%
+%
+This allows a much faster (repeated) reading of the trajectory information for the subsequent analysis of the trajectory.     
+The NumPy .npz data archive format file is automatically created by execution of shell scripts provided within the chrisbase code repository. More directly, the NumPy .npz data archive format file is created by calling the easy\_read function.
+Within the code repository, we provide:
+ \begin{itemize}
+  \item complex functions which can be executed from the command line and perform a complete analysis of a trajectory such as the calculation of an RDF function.  
+  \item python functions which can be imported from the chrisbase repository. These function can be directly called from the ipython interface and perform elementary steps (such as reading a trajectory)  for the design of own trajectory analysis scripts.      
+ \end{itemize}
+
+
+
+
+
+The positions of the atoms within the .xyz-trajectotry and the  NumPy .npz data archive format file do not have to agree. The positions of the atoms within the NumPy .npz data archive format file can be altered by the removal of the center of mass movement (com = True/False) or wrapping/unwrapping of the trajectory to original simulation box (wrap = True/False). 
+We recommend the usage of the \textbf{reduce\_trajec} command  (with parameter ``every'' = 1) in order to create an exact  copy of the atomic positions  from the  NumPy .npz data archive format file  in the.xyz format:
+
+\subsection{reduce\_trajec}
+
+\begin{itemize}
+\item description: This script prints every ``every''-th frame of the trajectory to a new trajectory with the name  ``new\_filename''
+\item aim1: this script can be used to create a reduced twin system (as a fast testsystem) for  processing of trajectories within the  ``create\_jump\_mat\_li'' comand
+\item aim2: reprinting of the given .xyz-trajectotry with the chosen options for ``com'' and ``wrap''
+
+%
+%
+\item usage: reduce\_trajec [-h] path  pbc com wrap every new\_filename
+%
+
+ \item  positional arguments:
+ \begin{itemize}
+ \item  path1:          path to xyz trajecwrap
+--- 2.0809898376464844 seconds ---
+remove com
+WARNING mass of Li is equal to zero.
+--- 2.967358112335205 seconds ---
+%
+ \item pbc:            path to pbc numpy mat
+ \item com:            remove center of mass movement?
+ \item wrap:           wrap trajectory?
+  \item  every:        every i-th step from trajec is used for  new reduced trajectory
+  \item new\_filename:  name of reduced trajectory file
+%
+%
+%
+%
+%
+%
+\end{itemize}
+ \item If the path to the original xyz trajectory is given by the path \textbf{``trajec/dummy.xyz''}  two new files are created:
+\begin{itemize}
+ \item the  NumPy .npz data archive format file: trajec/\textbf{dummy.xyz*.npz}. This file consist of a list of the atoms  stored in the trajectory and a three dimensional array of the positions of these atoms. The three dimensions of this array are    (number of md frames, number of atoms, 3).
+ \item a .xyz file  (new\_filename.xyz)
+\end{itemize}
+
+\subsection{Using the elementary functions from an ipython interface/ direct calling of python functions provided within the code repository}
+%
+%
+%
+%
+%
+%
+%
+%
+%
+Here, we want to present specific examples how to use our python functions and code snippets in order to design new trajectory analysing scripts:
+
+
+\subsubsection{Reading the trajectory: easy\_read  }
+Starting from the directory of this manual file please type:
+\begin{verbatim}
+cd ../manual/example_files/li13si4
+\end{verbatim}
+Launch ipython and type: 
+\begin{verbatim}
+In [1]: import numpy as np
+...: from trajec_io import readwrite
+...: path = "trajec/li13si4_timestep_50fs.xyz"
+...: pbc_mat = np.loadtxt("trajec/pbc_li13si4")
+...: com = True #remove center of mass movement?
+...: unwrap = True #wrap/unwrap trejectory?
+
+...: coord, atom = readwrite.easy_read(path, pbc_mat, com, unwrap)
+\end{verbatim}
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+
+
+%
+The array ``atom'' contains the types of the atoms. In our case, the system consist of 204 atoms: 
+\begin{verbatim}
+In [2]: atom.shape
+Out[2]: (204,)
+\end{verbatim}
+The atom type of the first atom in the .xyz file is \textit{'Li'}:
+\begin{verbatim}
+In [3]: atom[0]
+Out[3]: 'Li'
+\end{verbatim}
+
+The array ``coord'' contains the coordinates  each atom in each timestep. In our case, the positions (x,y and z component) of 204 atoms for  2079 frames  are stored:
+\begin{verbatim}
+In [4]: coord.shape
+Out[4]: (2079, 204, 3)
+\end{verbatim}
+
+The coordinates of the 13-th atom in the first time step can be accessed via:
+\begin{verbatim}
+In [5]: coord[0,12,:]
+Out[5]: array([-6.86230942, -4.26715054, -2.77046196])
+\end{verbatim}
+
+156 Lithium and 48 Silizium atoms are within the simulation box:
+\begin{verbatim}
+In [9]: atom[atom == "Li"].shape
+Out[9]: (156,)
+In [10]: atom[atom == "Si"].shape
+Out[10]: (48,)
+\end{verbatim}
+%
+
+Within one line, we can extract an array containing only the postions of the 156 Li atoms:
+\begin{verbatim}
+In [11]: coord_li = coord[:, atom == "Li", :]
+In [12]: coord_li.shape
+Out[12]: (2079, 156, 3)
+\end{verbatim}
+
+The function get\_com calculates the center of mass of a group of atoms:
+\begin{verbatim}
+In [4]: readwrite.get_com(coord[0,:,:], atom, pbc_mat) #calculate center of mass
+Out[4]: array([  1.94553368e-15,   1.33226763e-15,   2.74912368e-16])
+\end{verbatim}
+%
+Distances between two positions can be obtained by simple subtraction
+\begin{verbatim}
+In [8]: coord_li[2000,42,:] - coord_li[0,42,:] #calculate simple distance by substraction
+Out[8]: array([ 17.32749687,   0.70498052,   0.23202467])
+\end{verbatim}
+%
+or by consideration of minimum image convention / periodic boundary conditions (PBC):
+\begin{verbatim}
+In [9]: readwrite.pbc_dist(coord_li[2000,42,:], coord_li[0,42,:], pbc_mat) #pbc corrected distance
+Out[9]: array([ 1.42949687,  0.70498052,  0.23202467])
+\end{verbatim}
+%
+
+
+
+
+
+
+
+
+
+
+
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+
+%
+%
+%
+%
+%
+%
+%
+\end{itemize}
+%
+%
+%
+%
+%
+%
+%
+
+
+ 
+\section{Ion conduction related function}
+
+
+\subsection{Overall Idea/ General Concept of ion conduction related functions/code}
+Within the program package lithium conduction will be analyzed using a user-defined discrete lattice of possible lithium positions.
+The heart of the program package is the create\_jump\_mat\_li comand.
+
+All subsequent analysis scripts will ONLY make use of the files created  by the create\_jump\_mat\_li comand (essentially three different files).
+%
+Thus, these analysis scripts will have no dependencies with respect to the chrisbase code and can be fully understood by the several lines of code which constitute them. These analysis scripts do not have to be part of the chrisbase repo can be distributed as stand-alone files. 
+
+
+
+
+
+
+\subsection{The create\_jump\_mat\_li comand}
+%
+\begin{itemize}
+ \item Essentially, three different files (referred to as master files) are necessary to execute all back-end analysis of the conduction mechanism.
+ \item These master files are constructed by the \textbf{create\_jump\_mat\_li} command. The \textbf{create\_jump\_mat\_li} comes along with the chrisbase package:
+ \begin{itemize}
+%
+\item usage: create\_jump\_mat\_li [-h] path1 pbc com wrap lattice\_param jump speed
+
+\item positional arguments:
+ \begin{itemize}
+\item  path1:          path to xyz trajec
+%
+ \item pbc:            path to pbc numpy mat
+ \item com:            remove center of mass movement?
+ \item wrap:           wrap trajectory?
+\item  lattice\_param:  initial\_frame or path to lattice coordinates
+\item  jump:           which atoms are transfered?
+ \item speed:          every i-th step from trajec is used for neighbor mat
+\end{itemize}
+ \end{itemize}
+ \item If the path to the original xyz trajectory is given by the path \textbf{``trajec/dummy.xyz''} these three master files read as:
+\begin{itemize}
+%
+%
+%
+%
+  \item  trajec/\textbf{dummy.xyz*.npz}: dim(number of md frames, number of atoms, 3) storage of atomic positions and atom files for faster read operations with numpy  
+%
+  \item  trajec/\textbf{dummy.xyz*neighbor.npz.npy}:  dim(number of md frames, number of li atoms, number of lattice sites): for every md frame and lithium atom the next lattice side is stored
+  \item  \textbf{jump\_mat.npy}: dim(number of md frames, number of lattice sites , number of lattice sites): for each pair of lithium 
+%
+%
+%
+%
+  
+\end{itemize}
+ \item Please note, that by execution of  \textbf{create\_jump\_mat\_li}  these master files are only constructed if they do not already exist. This can lead to problems if there are changes in the code of \textbf{create\_jump\_mat\_li} or the usage of another xyz file as lattice (i.e. the change of the lattice within a directory is not recommended)
+ \item special care has to be taken with the parameter \textbf{lattice\_param}: 
+  \begin{itemize}
+ \item lattice\_param = initial\_frame uses the lithium positions of the first frame of the trajectory as lattice sites
+ \item  lattice\_param = PATH\_TO\_lattice\_xyz\_file uses the lithium atoms of the specified xyz file as lattice sites. Please note: \textbf{The ordering of the lithium atoms in the lattice xyz file and in the original trajectory has to be equal.}
+ \end{itemize}
+%
+%
+\end{itemize}
+
+%
+
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+
+
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+
+
+
+
+
+
+\subsection{Analysis scripts in the muscit repo}
+list is not complete
+\subsubsection{jumps\_from\_grid}
+\begin{itemize}
+\item description: Within a given temporal interval (duration1), the script determines groups of lithium sites which are connected by lithium jumps. These groups of connected lithium sites are referred to as jump types. The script determines the different jump types as well as  their occurrence.
+
+\item  usage: jumps\_from\_grid [-h]   path\_jump\_mat start1 end1 delay1 duration1
+
+ \item  positional arguments:
+ \begin{itemize}
+\item    path\_jump\_mat         path to jump mat
+\item    start1                first frame of jump matrix analyses
+\item   end1                  last frame of jump matricx analyses
+\item    delay1                distance in frames between two analyses
+\item   duration1             length of analyses in frames
+\end{itemize}
+\item description: Within a given temporal interval (duration1), the script determines groups of lithium sites which are connected by lithium jumps. These groups of connected lithium sites are referred to as jump types. The script determines the different jump types as well as  their occurrence.
+\item lattice1.npy is required, not documentated until now (softlink?)
+\end{itemize}
+
+
+
+\subsubsection{jump\_trajek\_from\_grid}
+\begin{itemize}
+ \item  Within a given temporal interval (duration1), the script determines groups of lithium sites which are connected by lithium jumps. Afterwards a trajectory of the corresponding interval is written and the lithium atom involved into the jump are highlighted by different colors
+\item usage: jump\_trajek\_from\_grid [-h] path\_jump\_mat start1 end1 delay1 duration1 noa pbc jump path1 index lattice speed
+
+\item positional arguments:
+ \begin{itemize}
+\item  path\_jump\_mat  path to jump mat
+\item  start1         first frame of jump matrix analyses
+ \item end1           last frame of jump matricx analyses
+ \item delay1         distance in frames between two analyses
+ \item duration1      length of analyses in frames
+ \item noa            number of atoms
+ \item pbc            path to pbc numpy mat
+ \item jump           which atoms are transfered?
+ \item path1          path to xyz trajec
+ \item index          path to file with jump indices
+\item  lattice        path to file with lattice coords
+ \item  speed         use every timestep?
+  \end{itemize}
+  \item index file has to contain more than one number!
+  \item example:  in the directory \begin{verbatim}$PATH1/li15si4/800/short_trajek\end{verbatim} execute:\\
+  \begin{verbatim}jump_trajek_from_grid ../jump_mat.npy 0 2100 300 300 76 ../trajec/pbc_li15si4 Li \end{verbatim} \begin{verbatim}../trajec/Li15Si4-pos-1-proc-ele-800K-100th.xyz ind1 ../trajec/geo_proc.xyz 1\end{verbatim}
+ 
+\end{itemize}
+%
+%
+
+
+
+
+
+\subsubsection{get\_jump\_arrows}
+\begin{itemize}
+
+\item description: The  number of ion jumps  between the lattice sites (within the entire trajectory) is stored and visualized by blue lines. The thickness of the lines is related to the number of ion jumps. The thickness is also normed with respect to the length of the trajectory and thus can be compared between different trajectories.
+
+\item usage: get\_jump\_arrows [-h] path\_jump path\_lattice filename
+
+\item  positional arguments:
+\begin{itemize}
+ \item path\_jump:     jump\_matrix
+ \item path\_lattice:  lattice\_matrix
+ \item filename:      output\_name
+ \item pbc:             file with periodic boundary conditions
+
+  \item line\_rescaling:  factor for rescaling of line thickness
+  \item show\_full:       only if show full = 100, also (unphysical) jumps through box
+                  are shown
+
+\end{itemize}
+\end{itemize}
+
+
+\subsubsection{wrap\_li\_to\_box}
+
+\begin{itemize}
+\item description: This functions wraps all ions back to the initial simulation box/ image. This is important for correct SDF plots. 
+%
+\item usage: wrap\_li\_to\_box [-h] path pbc com wrap path\_geo
+
+\item  positional arguments:
+\begin{itemize}
+\item  path        path to trajek
+%
+\item pbc         path to pbc numpy mat
+\item  com         remove center of mass movement
+\item  wrap        wrap trajec
+\item  path\_geo    path to lattice xyz
+%
+%
+%
+\end{itemize}
+\end{itemize}
+
+
+\subsection{associated analysis scripts not within the chrisbase repo}
+\begin{itemize}
+%
+ \item  path to scripts:
+ \begin{verbatim}
+ $PATH1/scripts
+ \end{verbatim}
+ \item input parameters of these scripts has to be adjusted within the python file  
+%
+ \begin{itemize}
+ \item \begin{verbatim}cube_and_saddle_smooth.py:\end{verbatim} calculate sdf of all li atoms and saddle points of the sdf, degree of smoothing can be adjusted
+\item \begin{verbatim}pic_from_flux.py:\end{verbatim} deprecated, markov arrows
+\item \begin{verbatim}special_sdf.py\end{verbatim} calculate sdf from lithium atoms after visiting  a certain lattice site
+\item \begin{verbatim}advanced_jump_stat_ready_to_print.py:\end{verbatim} statistic analysis of the resulting jump types file from the chrisbase script \textit{jumps\_from\_grid}, results are plotted to dictionary
+\item \begin{verbatim}final_delay_search.py:\end{verbatim} creates histogram of jump delays, does only need the \textbf{jump\_mat.npy} file
+%
+\end{itemize}
+\end{itemize}
+
+
+
+
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+
+
+
+
+ \end{document}
