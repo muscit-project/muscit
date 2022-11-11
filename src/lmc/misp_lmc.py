@@ -58,7 +58,7 @@ class Helper:
     noji: int
     nols: int
     jumps: int
-    jump_mat_recalc: "int[][]"
+    jump_mat_recalc: "int[:,:]"
     sources: "int[] list"
     destinations: "int[] list"
     probs: "float[] list"
