@@ -11,7 +11,7 @@ In addition, this package provides a variety of tools, scripts, and code snippet
 ======
 How To
 ======
-see :doc:`documentation <docs/build/html/index.html>` for more information
+see ``docs/`` for documentation
 see ``example/`` for a example calculation
 
 
