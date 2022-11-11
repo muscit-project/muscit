@@ -18,7 +18,8 @@ see ``example/`` for a example calculation
 ============
 Installation
 ============
-clone this git repository and install the package with pipi using a virtual environment::
+clone this git repository and install the package with pip using a virtual environment::
+
     python3 -m venv ~/muscit_venv
     source ~/muscit_venv/bin/activate
     pip install --upgrade pip
