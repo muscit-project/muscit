@@ -10,27 +10,53 @@ import numpy as np
 
 
 
-mass_dict = dict()
-# Atom masses in u
-mass_dict["Si"] = 28
-mass_dict["Li"] = 0
-mass_dict["O"] = 16
-mass_dict["H"] = 1
-mass_dict["C"] = 12
-mass_dict["N"] = 1
-mass_dict["Na"] = 23
-mass_dict["F"] = 1
-mass_dict["S"] = 32
-mass_dict["Cs"] = 133
-mass_dict["P"] = 31
-mass_dict["Pb"] = 207
-mass_dict["Sn"] = 119
-mass_dict["W"] = 184
+
+def atomic_mass(chemicalsymbol):
+    mass_dict = dict()
+    # Atom masses in u
+    mass_dict["Si"] = 28
+    mass_dict["Li"] = 0
+    mass_dict["O"] = 16
+    mass_dict["H"] = 1
+    mass_dict["C"] = 12
+    mass_dict["N"] = 1
+    mass_dict["Na"] = 23
+    mass_dict["F"] = 1
+    mass_dict["S"] = 32
+    mass_dict["Cs"] = 133
+    mass_dict["P"] = 31
+    mass_dict["Pb"] = 207
+    mass_dict["Sn"] = 119
+    mass_dict["W"] = 184
+
+    return mass_dict[chemicalsymbol]
 
 class Trajectory:
+    """Coordinates and periodic boundary conditions of a trajectory.
+
+    Parameters
+    ----------
+    coords : np.ndarray
+        Coordinates of n frames containing m atoms in a 3D-array of shape (n, m, 3)
+    atom : np.ndarray
+        Element labels in a 1D-array of shape (m,)
+    pbc : np.ndarray
+        Periodic boundary conditions as a 2D-array of shape (3, 3)
+
+    Attributes
+    ----------
+    inv_pbc : precomputed inverse of pbc via np.linalg.inv(pbc)
+    """
     def __init__(self, coords, atom, pbc = None):
+        # Try to reshape coords and atom into a 3D and 1D array respectively
+        while coords.ndim < 3:
+            coords = np.expand_dims(coords, 0)
+        atom = np.squeeze(atom)
+        # Make sure that atom numbers are equal in both
+        assert(coords.shape[2] == atom.shape[1])
         self.coords = coords
         self.atomlabels = atom
+        self.frame_no, self.atom_no, _ = self.coords.shape
         if (pbc is not None) and np.any(pbc):
             self.pbc = pbc
             self.inv_pbc = np.linalg.inv(pbc)
@@ -57,6 +83,8 @@ class Trajectory:
     # index trajectory using numpy-like slicing via trajectory[timesteps, atoms, dimensions]
     # returns trajectory containing only those coords and atomlabels specified
     def __getitem__(self, sl):
+        """Slice out frames from the trajectory, just like an array.
+        """
         if isinstance(sl, slice) or isinstance(sl, int) or isinstance(sl, list) or sl is Ellipsis or sl is None:
             # if slicing out multiple timesteps, then slice in coords and leave atomlabels unchanged
             subtraj = Trajectory(self.coords[sl], self.atomlabels, self.pbc)
@@ -73,17 +101,35 @@ class Trajectory:
 
     def __str__(self):
         atom_no = len(self.atomlabels)
-        frame_no = self.coords.shape[0] if self.coords.ndim == 3 else 1
+        frame_no = self.coords.shape[0]
         atom_string = f"{atom_no} atoms" if atom_no != 1 else f"{atom_no} atom"
         frame_string = f"{frame_no} frames" if frame_no != 1 else f"{frame_no} frame"
         return "Trajectory of " + atom_string + " in " + frame_string
 
     # Wrapper for distance and neighbor functions
     def pbc_dist(self, point1, point2):
+        """Calculates distance between two points in a periodic box according to the minimum-image convention.
+
+        See Also
+        --------
+        pbc_dist
+        """
         return pbc_dist(point1, point2, self.pbc, self.inv_pbc)
     def pbc_dist2(self, group1, group2):
+        """Calculates all pair-wise distance between two lists of points in a periodic box according to the minimum-image convention.
+
+            See Also
+            --------
+            pbc_dist2
+        """
         return pbc_dist2(group1, group2, self.pbc, self.inv_pbc)
     def next_neighbor2(self, group1, group2):
+        """Find closest neighbors to the first group of coordinates from among the second group.
+
+        See Also
+        --------
+        next_neighbor2
+        """
         return next_neighbor2(group1, group2, self.pbc, self.inv_pbc)
 
 def start_logging():
@@ -161,16 +207,17 @@ def wrap_trajectory(coord, pbc_mat):
 
 # Returns center of mass as array of dimensionality (timesteps, 3 spatial dimensions)
 def get_com(coord, atoms, pbc_mat):
-    for i in mass_dict.keys():
-        if mass_dict[i] == 0:
-            print("WARNING mass of " + i + " is equal to zero.")
-
     # Get atom masses from mass_dict and calculate weights for the com as the weighted average of all coordinates
     mass_list = []
     for atom_type in atoms:
-        mass_list.append(mass_dict[atom_type])
+        mass_list.append(atomic_mass(atom_type))
     mges = sum(mass_list)
     mass_weights = np.array(mass_list) / mges
+
+    # Print warning if one of the elements has a mass of zero
+    for i in np.unique(atoms):
+        if np.all(mass_list[atoms == i] == 0):
+            print("WARNING mass of " + i + " is equal to zero.")
 
     # Calculate com for each frame
     com = np.multiply(coord, mass_weights[np.newaxis, :, np.newaxis])
@@ -415,16 +462,17 @@ def next_neighbor2_triclinic(atom_1, atom_2, pbc_mat):
     return listx, min_list
 
 def remove_com(coord, atoms, zero = True):
-    # mass_dict is global now
-    for i in mass_dict.keys():
-        if mass_dict[i] == 0:
-            print("WARNING mass of " + i + " is equal to zero.")
     # Get atom masses from mass_dict and calculate weights for the com as the weighted average of all coordinates
     mass_list = []
     for atom_type in atoms:
-        mass_list.append(mass_dict[atom_type])
+        mass_list.append(atomic_mass(atom_type))
     mges = sum(mass_list)
     mass_weights = np.array(mass_list) / mges
+
+    # Print warning if one of the elements has a mass of zero
+    for i in np.unique(atoms):
+        if np.all(mass_list[atoms == i] == 0):
+            print("WARNING mass of " + i + " is equal to zero.")
 
     # Calculate com for each frame
     com = np.multiply(coord, mass_weights[np.newaxis, :, np.newaxis])
