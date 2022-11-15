@@ -18,12 +18,20 @@ see ``example/`` for a example calculation
 ============
 Installation
 ============
-clone this git repository and install the package with pip using a virtual environment::
+The package can be installed by invoking pip from the main directory. Performance critical parts can be compiled using pythran/transonic for considerable speed-up. To this end a Makefile is supplied::
+    
+    git clone https://github.com/muscit-project/muscit.git
+    cd muscit
+    make
 
-    python3 -m venv ~/muscit_venv
-    source ~/muscit_venv/bin/activate
-    pip install --upgrade pip
+Alternatively, you can call the contents of the Makefile by hand::
 
-    git clone https://github.com/muscit-project/muscit.git 
-    pip install -e muscit 
+    git clone https://github.com/muscit-project/muscit.git
+    cd muscit
+    python3 -m pip install .
+    python3 setup.py build_ext --build-lib=.
+
+==========
+References
+==========
 

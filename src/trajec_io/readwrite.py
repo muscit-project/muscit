@@ -2,16 +2,34 @@ import logging
 import os
 import time
 import pandas as pd
-import logging
 import itertools
 import subprocess
 
 import numpy as np
+import numpy.typing as npt
 
 
 
+# currently int mass, might become float at some point
+def atomic_mass(chemicalsymbol : str) -> int:
+    """Atomic mass of most common isotope of a given element.
 
-def atomic_mass(chemicalsymbol):
+    Parameters
+    ----------
+    chemicalsymbol : str
+        
+    Returns
+    -------
+    atomic mass : float
+
+    Warning
+    -------
+    Only has the most important elements (as in those we used so far).
+
+    Todo
+    ----
+    Add missing elements.
+    """
     mass_dict = dict()
     # Atom masses in u
     mass_dict["Si"] = 28
@@ -37,34 +55,48 @@ class Trajectory:
     Parameters
     ----------
     coords : np.ndarray
-        Coordinates of n frames containing m atoms in a 3D-array of shape (n, m, 3)
+        Coordinates of n frames containing m atoms in a 3D-array of shape (n, m, 3). 1D and 2D arrays will be expanded to a 3D array of 1 frame.
     atom : np.ndarray
-        Element labels in a 1D-array of shape (m,)
-    pbc : np.ndarray
-        Periodic boundary conditions as a 2D-array of shape (3, 3)
+        Element labels in a 1D-array of shape (m,).
+    pbc : np.ndarray or None
+        Periodic boundary conditions as a 2D-array of shape (3, 3).
 
     Attributes
     ----------
-    inv_pbc : precomputed inverse of pbc via np.linalg.inv(pbc)
+    coords : np.ndarray
+    atomlabels : np.ndarray
+    pbc : np.ndarray
+    inv_pbc : np.ndarray
+        precomputed inverse of pbc via np.linalg.inv(pbc)
+
+
+    Notes
+    -----
+    For legacy reasons, a Trajectory object `traj` can be iterated equal to `(traj.coords, traj.atom)`. As a result, they can be unpacked::
+
+        coords, atom = traj
     """
-    def __init__(self, coords, atom, pbc = None):
+    def __init__(self, coords : np.ndarray, atom : np.ndarray, pbc : np.ndarray) -> None:
         # Try to reshape coords and atom into a 3D and 1D array respectively
         while coords.ndim < 3:
             coords = np.expand_dims(coords, 0)
         atom = np.squeeze(atom)
         # Make sure that atom numbers are equal in both
         assert(coords.shape[2] == atom.shape[1])
+        # Set attributes
         self.coords = coords
         self.atomlabels = atom
         self.frame_no, self.atom_no, _ = self.coords.shape
+        # With periodic boundary conditions
         if (pbc is not None) and np.any(pbc):
             self.pbc = pbc
             self.inv_pbc = np.linalg.inv(pbc)
+        # Without periodic boundary conditions
         else:
             # for non-periodic systems
             self.pbc = None
             self.inv_pbc = None
-            # without pbc, calculate distances by subtraction
+            # without pbc, calculate direct distance
             self.pbc_dist = lambda p1, p2 : p1 - p2
             self.pbc_dist2 = lambda p1, p2 : p1[..., np.newaxis, :] - p2[..., np.newaxis, :, :]
             def next_neighbor2_direct(group1, group2):
