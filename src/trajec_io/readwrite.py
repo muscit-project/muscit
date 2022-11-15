@@ -82,7 +82,7 @@ class Trajectory:
             coords = np.expand_dims(coords, 0)
         atom = np.squeeze(atom)
         # Make sure that atom numbers are equal in both
-        assert(coords.shape[2] == atom.shape[1])
+        assert(coords.shape[1] == atom.shape[0])
         # Set attributes
         self.coords = coords
         self.atomlabels = atom
@@ -238,17 +238,17 @@ def wrap_trajectory(coord, pbc_mat):
 
 
 # Returns center of mass as array of dimensionality (timesteps, 3 spatial dimensions)
-def get_com(coord, atoms, pbc_mat):
+def get_com(coord, atoms):
     # Get atom masses from mass_dict and calculate weights for the com as the weighted average of all coordinates
-    mass_list = []
-    for atom_type in atoms:
-        mass_list.append(atomic_mass(atom_type))
-    mges = sum(mass_list)
-    mass_weights = np.array(mass_list) / mges
+    mass_list = np.zeros(len(atoms), dtype = float)
+    for (i, atom_type) in enumerate(atoms):
+        mass_list[i] = atomic_mass(atom_type)
+    mges = np.sum(mass_list)
+    mass_weights = mass_list / mges
 
     # Print warning if one of the elements has a mass of zero
     for i in np.unique(atoms):
-        if np.all(mass_list[atoms == i] == 0):
+        if np.all(mass_list[np.array(atoms) == i] == 0):
             print("WARNING mass of " + i + " is equal to zero.")
 
     # Calculate com for each frame
@@ -256,6 +256,22 @@ def get_com(coord, atoms, pbc_mat):
     com = np.sum(com, axis=1)
 
     return com
+
+def remove_com(coord, atoms, zero = True):
+    # Get atom masses from mass_dict and calculate weights for the com as the weighted average of all coordinates
+    com = get_com(coord, atoms)
+
+    # Set com to (0, 0, 0) if zero is true, otherwise keep com of first frame
+    if zero == True:
+        com_init = np.array([0.0, 0.0, 0.0])
+    else:
+        com_init = com[0]
+
+    # Subtract com from coord and return result
+    coord_com = coord - com[:, np.newaxis, :]
+    coord_com += com_init
+    return coord_com
+
 
 def limit_for_pbc_dist(pbc):
     cell_volume = np.linalg.det(pbc)
@@ -492,34 +508,6 @@ def next_neighbor2_triclinic(atom_1, atom_2, pbc_mat):
     listx=np.argmin(dist_list,axis=1)
     min_list = dist_list[np.arange(len(atom_1)),listx]
     return listx, min_list
-
-def remove_com(coord, atoms, zero = True):
-    # Get atom masses from mass_dict and calculate weights for the com as the weighted average of all coordinates
-    mass_list = []
-    for atom_type in atoms:
-        mass_list.append(atomic_mass(atom_type))
-    mges = sum(mass_list)
-    mass_weights = np.array(mass_list) / mges
-
-    # Print warning if one of the elements has a mass of zero
-    for i in np.unique(atoms):
-        if np.all(mass_list[atoms == i] == 0):
-            print("WARNING mass of " + i + " is equal to zero.")
-
-    # Calculate com for each frame
-    com = np.multiply(coord, mass_weights[np.newaxis, :, np.newaxis])
-    com = np.sum(com, axis=1)
-
-    # Set com to (0, 0, 0) if zero is true, otherwise keep com of first frame
-    if zero == True:
-        com_init = np.array([0.0, 0.0, 0.0])
-    else:
-        com_init = com[0]
-
-    # Subtract com from coord and return result
-    coord_com = coord - com[:, np.newaxis, :]
-    coord_com += com_init
-    return coord_com
 
 
 def traj_to_ar(path):
