@@ -2,6 +2,10 @@
 MUSCIT: Multiscale Ion Transport Simulation 
 ###########################################
 
+.. image:: https://readthedocs.org/projects/muscit/badge/?version=latest
+    :target: https://muscit.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
+
 This package aims to simulate ion motion on large time and length scales.  While local transfer rates are sampled from atomistic (ab initio) molecular dynamics simulations,
 the actual long-term propagation of particles is carried out probabilistically among a (dynamically evolving) grid of lattice atoms.
 Depending on the ion type and the conduction mechanism, ion transport can be simulated by applying a transition matrix (Markov chain) or by a Lattice Monte Carlo approach.
