@@ -13,6 +13,7 @@ Welcome to muscit's documentation!
    :caption: Contents:
 
    modules
+   examples
 
 
 
