@@ -30,16 +30,20 @@ def scale_transition_matrix(markov_mat, factor):
 
 def get_msd_from_markov(mat_av, lattice1, dt_markov, msd_steps, pbc):
     square_mat = np.zeros(mat_av.shape)
-    for i in range(square_mat.shape[0]):
-        for j in range(square_mat.shape[0]):
-            square_mat[i, j] = np.linalg.norm(readwrite.pbc_dist(lattice1[i],lattice1[j], pbc))**2
-    time1 = []
-    msd = []
+    square_mat = np.linalg.norm( readwrite.pbc_dist2(lattice1, lattice1, pbc), axis = -1)**2
+#    for i in range(square_mat.shape[0]):
+#        for j in range(square_mat.shape[0]):
+#            square_mat[i, j] = np.linalg.norm(readwrite.pbc_dist(lattice1[i],lattice1[j], pbc))**2
+    time1 = dt_markov * np.arange(msd_steps)
+    msd = np.zeros(msd_steps)
+#    time1 = []
+#    msd = []
     tmp1 = np.eye(mat_av.shape[0])
     for i in range(msd_steps):
-        dist_act = square_mat * tmp1
-        msd.append(dist_act.sum())
-        time1.append(i * dt_markov)
+        msd[i] = np.sum(square_mat * tmp1)
+#        dist_act = square_mat * tmp1
+#        msd.append(dist_act.sum())
+#        time1.append(i * dt_markov)
         tmp1 = mat_av @ tmp1
     final = np.zeros((msd_steps, 2))
     msd = np.array(msd) / mat_av.shape[0]
@@ -47,6 +51,7 @@ def get_msd_from_markov(mat_av, lattice1, dt_markov, msd_steps, pbc):
     final[:, 0] = time1
     final[:, 1] = msd
     np.savetxt("msd_from_markov", final)
+    return final
 
 
 

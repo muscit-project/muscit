@@ -17,7 +17,7 @@ def main():
         #print(sys.argv)
         #readwrite.get_git_version()
         readwrite.start_logging()
-        logging.info(sys.argv)
+        readwrite.log_input(sys.argv)
         parser = argparse.ArgumentParser(description='This executable calculates a jump probability matrix (pickle_jump_mat_proc.p). The ij-th  matrix element correpond to probability for a transfer/jump of an ion betweent lattice sites i and j.  This scripts requires the output of the script evaluate_jumps_on_grid and the fermi_param file created by the script  adv_calc_jump_rate using the option --fit. fermi_param file contains only the three parameters for a fermi function.')
         parser.add_argument("path1", help="path to xyz trajec")
         parser.add_argument("pbc_path", help="path to pbc numpy mat")
@@ -29,9 +29,10 @@ def main():
         parser.add_argument("--jumping_ion_type", help="which atoms are transfered?", default = "H")
         parser.add_argument("--speed", help="every i-th step from trajec is used for neighbor mat", type = int, default=1)
         parser.add_argument("--angle_atoms", help="atoms for angle definiton", nargs = '+')
-        parser.add_argument("--normal_occupation", help="usual number of ions attached to each lattice point", nargs = '+', default = None)
+        parser.add_argument("--normal_occupation", help="usual number of ions attached to each lattice point", nargs = '+', default = None, type = int)
         parser.add_argument("--asymmetric", action="store_true", help = "calculate jump probabilities asymmetrically")
         parser.add_argument("--custom", action="store_true", help = "use custom_lmc.py for custom function prepare_trajectory")
+        parser.add_argument("--clip", help = "clip trajectory to an interval", type = int, nargs = 2)
 
         args = parser.parse_args()
 
@@ -48,6 +49,8 @@ def main():
             from custom_lmc import prepare_trajectory
             prepare_trajectory(traj)
 
+        if args.clip:
+            traj = traj[args.clip[0] : args.clip[1]]
         # construct AnalysisHelper and calculate everything else from it
         analysishelper = AnalysisHelper(traj, settings)
         #jump_info = find_jumps( analysishelper, fixed_lattice )

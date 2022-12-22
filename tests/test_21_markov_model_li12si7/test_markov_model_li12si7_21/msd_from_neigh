@@ -1,0 +1,53 @@
+#!/bin/bash
+#mid1="/travis_NtoO/"
+#end1="-pos-1.xyz"
+#trajek="restore_Li13Si4-pos-1-proc-ele-800K-100th.xyz"
+trajek="Li12Si7-pos-1_every_100th_false_false.xyz"
+#pbc="pbc_li13si4"
+pbc="pbc_li12si7"
+
+#for arg1 in 20 40 80; do
+#for arg1 in 10 160 320 ; do
+#for arg1 in 10 20 40 80 160 320 ; do
+for arg1 in   40  ; do
+       echo $arg1
+       mkdir $arg1
+       cd $arg1
+       #for arg2 in aimd aimd_from_neigh msd_from_neigh; do
+       #echo $arg2
+       #mkdir $arg2
+       #cd $arg2
+       rm -r msd_from_neigh
+       mkdir msd_from_neigh
+       cd msd_from_neigh
+       
+       cp ../../$pbc .
+       cp ../../$trajek .
+       cp ../../geo.xyz .
+       #create_jump_mat_li Li13Si4-pos-1_feb22.xyz  pbc_li13si4  True  nowrap 1 Li Li --lattice geo.xyz
+       #msd_from_neigh_mat jumping_ion_neighbors.npy lattice1.npy pbc_li13si4 0.05 40 1 
+       #create_jump_mat_li $trajek $pbc  True  nowrap 1 Li Li > out.create_jump_mat_li
+       #msd_from_neigh_mat jumping_ion_neighbors.npy lattice1.npy $pbc 0.05 $arg1 1 > out.msd_from_neigh_mat  
+       #create_jump_mat_li Li13Si4-pos-1_feb22.xyz  pbc_li13si4  True  nowrap 1 Li Li --lattice geo.xyz
+       #markov_mat_from_neigh_mat jumping_ion_neighbors.npy  40 lattice1.npy  156
+       #msd_from_markov markov_matrix_40_.txt pbc_li13si4 lattice1.npy 20  2
+       create_jump_mat_li $trajek $pbc  True  nowrap 1 Li Li --lattice geo.xyz
+       markov_mat_from_neigh_mat jumping_ion_neighbors.npy  $arg1 lattice1.npy  96
+       fac=0.05
+       #echo
+       #echo $(expr $arg1 * $fac)
+       #echo 0.5 \* 2 | bc
+       #echo $arg1 * $fac1
+       #t=$(echo $arg1 * $fac1 | bc)
+       #echo $t
+       #echo $fac
+       #echo $arg1
+       t=$(echo $fac*$arg1 | bc)
+       echo $t
+       #msd_from_markov markov_matrix_$arg1"_.txt" $pbc lattice1.npy  $arg1  $t
+       msd_from_markov markov_matrix_$arg1"_.txt" $pbc lattice1.npy  100  $t
+
+       cd ..
+       cd ..
+done
+

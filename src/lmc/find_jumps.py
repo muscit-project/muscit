@@ -15,7 +15,7 @@ def main():
 #        logging.basicConfig(filename='misp.log', level=logging.DEBUG)
 #        logging.debug('command line:')
         readwrite.start_logging()
-        logging.info(sys.argv)
+        readwrite.log_input(sys.argv)
         #logging.debug(readwrite.get_git_version())
         #logging.debug(readwrite.log_git_version())
         #print("command line:")
@@ -35,6 +35,7 @@ def main():
         parser.add_argument("--lattice_coords", help="path to lattice coordinates; otherwise first frame of trajec will be used", default="first_frame")
         parser.add_argument("--speed", help="every i-th step from trajec is used for neighbor mat", type = int, default = 1)
         parser.add_argument("--custom", action="store_true", help = "use custom_lmc.py for custom function prepare_trajectory")
+        parser.add_argument("--clip", help = "clip trajectory by discarding timesteps with a higher index", type = int, nargs = 2)
 
 
         args = parser.parse_args()
@@ -67,6 +68,9 @@ def main():
             print(f"Loading function prepare_trajectory from {os.getcwd()}/custom_lmc.py")
             from custom_lmc import prepare_trajectory
             prepare_trajectory(traj)
+
+        if args.clip:
+            traj = traj[args.clip[0] : args.clip[1]]
 
         # construct AnalysisHelper and calculate everything else from it
         analysishelper = AnalysisHelper(traj, settings)

@@ -12,7 +12,8 @@ from scipy.optimize import curve_fit
 from scipy.sparse import coo_matrix
 
 from trajec_io import readwrite
-from lmc.prepare_lmc import Settings, AnalysisHelper, boolean_string
+from lmc.prepare_lmc import Settings, AnalysisHelper, boolean_string, create_pair_identifiers
+from lmc.find_jumps import neighbors_in_traj
 
 #def boolean_string(s):
 #    if s not in {"False", "True"}:
@@ -24,7 +25,7 @@ def main():
         #print(sys.argv)
         #readwrite.get_git_version()
         readwrite.start_logging()
-        logging.info(sys.argv)
+        readwrite.log_input(sys.argv)
         parser = argparse.ArgumentParser('This script calculates the jump rate function from the output of the  evaluate_jumps_on_grid script. If --fit is chosen, a fermi fit to the jump rate funtion is applied')
         parser.add_argument("path", help="path to trajek")
         parser.add_argument("pbc_path", help="path to pbc numpy mat")
@@ -34,7 +35,7 @@ def main():
         parser.add_argument("--jumping_ion_type", help="which atoms are transfered?", default = "H")
         parser.add_argument("--speed", help="every i-th step from trajec is used for neighbor mat", type = int, default = 1)
         parser.add_argument("--angle_atoms", help="atoms for angle definiton", nargs = '+')
-        parser.add_argument("--normal_occupation", help="usual number of ions attached to each lattice point", nargs = '+')
+        parser.add_argument("--normal_occupation", help="usual number of ions attached to each lattice point", nargs = '+', type = int)
     #    parser.add_argument("--dynamic",  action="store_true", help="update grid from trajectory in every step")
     #    parser.add_argument("--asymmetric", action="store_true", help = "calculate jump probabilities asymmetrically")
         parser.add_argument("--custom", action="store_true", help = "use custom_lmc.py for custom function prepare_trajectory")
@@ -43,6 +44,7 @@ def main():
         parser.add_argument("--fermi_out", help="path to store fitted fermi parameters in", default = "fermi_param")
         parser.add_argument("--distances_out", help = "path to store distances (as pickle object) in", default = "pickle_dist_mat_angle.p" )
         parser.add_argument("--fit",  action="store_true", help="fit probability curve")
+        parser.add_argument("--clip", help = "clip trajectory to an interval", type = int, nargs = 2)
 
         args = parser.parse_args()
         # Load pbc, trajectory and fixed lattice coordinates if supplied
@@ -59,6 +61,8 @@ def main():
             from custom_lmc import prepare_trajectory
             prepare_trajectory(traj)
 
+        if args.clip:
+            traj = traj[args.clip[0] : args.clip[1]]
         # construct AnalysisHelper and calculate everything else from it
         analysishelper = AnalysisHelper(traj, settings)
         #jump_info = find_jumps( analysishelper, fixed_lattice )
@@ -119,6 +123,7 @@ def find_jumpprobs_and_fit(analysishelper, neighborfile = "jumping_ion_neighbors
     # get protonation states
     try:
         ion_neighbors = np.load(neighborfile)
+        ion_neighbors = ion_neighbors[:analysishelper.frame_no, :]
     except (FileNotFoundError, TypeError):
         ion_neighbors = neighbors_in_traj(analysishelper)
     protonations = neighbors_to_protonation(ion_neighbors, analysishelper)
@@ -158,7 +163,7 @@ def find_jumpprobs_and_fit(analysishelper, neighborfile = "jumping_ion_neighbors
         #for pair in analysishelper.pair_strings:
         #    lattice_distances_hist[pair] += np.histogram( correct_protonated_distances[ pair_identifiers == pair ], range = dlimits, bins = bins )[0]
 
-    jump_distances_hist = bin_jumpinfo_by_type(analysishelper, jump_info, dlimits = dlimits, bins = bins)
+    jump_distances_hist = bin_jumpinfo_by_type(analysishelper.lattice_traj, jump_info, dlimits = dlimits, bins = bins)
 
     # for each lattice type pair:
     #   average lattice distances and jump distances over all timesteps
@@ -197,7 +202,7 @@ def neighbors_to_protonation(neighbors, helper, fixed_lattice = None):
         lattice_no = fixed_lattice.shape[0]
     protonations = np.zeros((helper.frame_no, lattice_no))
     for i in range(helper.frame_no):
-        protonations[i] = np.bincount(neighbors[i], minlength = lattice_no)
+        protonations[i, :] = np.bincount(neighbors[i], minlength = lattice_no)
     protonations -= helper.normal_protonation
     return protonations.astype(bool)
 
@@ -296,14 +301,15 @@ def bin_distances_by_types_and_protonations(analysishelper, distances, protonati
         out[pair] += my_histogram(distances_pair, bins, dlimits)
     return out
 
-def bin_jumpinfo_by_type(analysishelper, jump_info, dlimits = (2.0, 3.0), bins = 100):
+def bin_jumpinfo_by_type(lattice_traj, jump_info, dlimits = (2.0, 3.0), bins = 100):
     timesteps, sources, destinations = jump_info.T
-    start_positions = analysishelper.lattice_traj.coords[timesteps, sources]
-    end_positions = analysishelper.lattice_traj.coords[timesteps, destinations]
-    distances = np.linalg.norm( analysishelper.lattice_traj.pbc_dist( start_positions, end_positions), axis = -1 )
-    pair_identifiers = analysishelper.pair_identifiers[ sources, destinations ]
+    start_positions = lattice_traj.coords[timesteps, sources]
+    end_positions = lattice_traj.coords[timesteps, destinations]
+    distances = np.linalg.norm( lattice_traj.pbc_dist( start_positions, end_positions), axis = -1 )
+    all_pair_identifiers = create_pair_identifiers(lattice_traj.atomlabels)
+    pair_identifiers = all_pair_identifiers[ sources, destinations ]
     hists = {}
-    for pair in analysishelper.pair_strings:
+    for pair in np.unique(all_pair_identifiers):
         hists[pair] = np.histogram( distances[ pair_identifiers == pair], range = dlimits, bins = bins)[0]
     return hists
 

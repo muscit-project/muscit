@@ -2,43 +2,101 @@ import logging
 import os
 import time
 import pandas as pd
-import logging
 import itertools
 import subprocess
 
 import numpy as np
+import numpy.typing as npt
 
 
 
-mass_dict = dict()
-# Atom masses in u
-mass_dict["Si"] = 28
-mass_dict["Li"] = 0
-mass_dict["O"] = 16
-mass_dict["H"] = 1
-mass_dict["C"] = 12
-mass_dict["N"] = 1
-mass_dict["Na"] = 23
-mass_dict["F"] = 1
-mass_dict["S"] = 32
-mass_dict["Cs"] = 133
-mass_dict["P"] = 31
-mass_dict["Pb"] = 207
-mass_dict["Sn"] = 119
-mass_dict["W"] = 184
+# currently int mass, might become float at some point
+def atomic_mass(chemicalsymbol : str) -> int:
+    """Atomic mass of most common isotope of a given element.
+
+    Parameters
+    ----------
+    chemicalsymbol : str
+        
+    Returns
+    -------
+    atomic mass : float
+
+    Warning
+    -------
+    Only has the most important elements (as in those we used so far).
+
+    Todo
+    ----
+    Add missing elements.
+    """
+    mass_dict = dict()
+    # Atom masses in u
+    mass_dict["Si"] = 28
+    mass_dict["Li"] = 0
+    mass_dict["O"] = 16
+    mass_dict["H"] = 1
+    mass_dict["C"] = 12
+    mass_dict["N"] = 1
+    mass_dict["Na"] = 23
+    mass_dict["F"] = 1
+    mass_dict["S"] = 32
+    mass_dict["Cs"] = 133
+    mass_dict["P"] = 31
+    mass_dict["Pb"] = 207
+    mass_dict["Sn"] = 119
+    mass_dict["W"] = 184
+
+    return mass_dict[chemicalsymbol]
 
 class Trajectory:
-    def __init__(self, coords, atom, pbc = None):
+    """Coordinates and periodic boundary conditions of a trajectory.
+
+    Parameters
+    ----------
+    coords : np.ndarray
+        Coordinates of n frames containing m atoms in a 3D-array of shape (n, m, 3). 1D and 2D arrays will be expanded to a 3D array of 1 frame.
+    atom : np.ndarray
+        Element labels in a 1D-array of shape (m,).
+    pbc : np.ndarray or None
+        Periodic boundary conditions as a 2D-array of shape (3, 3).
+
+    Attributes
+    ----------
+    coords : np.ndarray
+    atomlabels : np.ndarray
+    pbc : np.ndarray
+    inv_pbc : np.ndarray
+        precomputed inverse of pbc via np.linalg.inv(pbc)
+
+
+    Notes
+    -----
+    For legacy reasons, a Trajectory object `traj` can be iterated equal to `(traj.coords, traj.atom)`. As a result, they can be unpacked::
+
+        coords, atom = traj
+    """
+    def __init__(self, coords : np.ndarray, atom : np.ndarray, pbc : np.ndarray) -> None:
+        # Try to reshape coords and atom into a 3D and 1D array respectively
+        while coords.ndim < 3:
+            coords = np.expand_dims(coords, 0)
+        atom = np.squeeze(atom)
+        # Make sure that atom numbers are equal in both
+        assert(coords.shape[1] == atom.shape[0])
+        # Set attributes
         self.coords = coords
         self.atomlabels = atom
+        self.frame_no, self.atom_no, _ = self.coords.shape
+        # With periodic boundary conditions
         if (pbc is not None) and np.any(pbc):
             self.pbc = pbc
             self.inv_pbc = np.linalg.inv(pbc)
+        # Without periodic boundary conditions
         else:
             # for non-periodic systems
             self.pbc = None
             self.inv_pbc = None
-            # without pbc, calculate distances by subtraction
+            # without pbc, calculate direct distance
             self.pbc_dist = lambda p1, p2 : p1 - p2
             self.pbc_dist2 = lambda p1, p2 : p1[..., np.newaxis, :] - p2[..., np.newaxis, :, :]
             def next_neighbor2_direct(group1, group2):
@@ -57,6 +115,8 @@ class Trajectory:
     # index trajectory using numpy-like slicing via trajectory[timesteps, atoms, dimensions]
     # returns trajectory containing only those coords and atomlabels specified
     def __getitem__(self, sl):
+        """Slice out frames from the trajectory, just like an array.
+        """
         if isinstance(sl, slice) or isinstance(sl, int) or isinstance(sl, list) or sl is Ellipsis or sl is None:
             # if slicing out multiple timesteps, then slice in coords and leave atomlabels unchanged
             subtraj = Trajectory(self.coords[sl], self.atomlabels, self.pbc)
@@ -73,17 +133,35 @@ class Trajectory:
 
     def __str__(self):
         atom_no = len(self.atomlabels)
-        frame_no = self.coords.shape[0] if self.coords.ndim == 3 else 1
+        frame_no = self.coords.shape[0]
         atom_string = f"{atom_no} atoms" if atom_no != 1 else f"{atom_no} atom"
         frame_string = f"{frame_no} frames" if frame_no != 1 else f"{frame_no} frame"
         return "Trajectory of " + atom_string + " in " + frame_string
 
     # Wrapper for distance and neighbor functions
     def pbc_dist(self, point1, point2):
+        """Calculates distance between two points in a periodic box according to the minimum-image convention.
+
+        See Also
+        --------
+        pbc_dist
+        """
         return pbc_dist(point1, point2, self.pbc, self.inv_pbc)
     def pbc_dist2(self, group1, group2):
+        """Calculates all pair-wise distance between two lists of points in a periodic box according to the minimum-image convention.
+
+            See Also
+            --------
+            pbc_dist2
+        """
         return pbc_dist2(group1, group2, self.pbc, self.inv_pbc)
     def next_neighbor2(self, group1, group2):
+        """Find closest neighbors to the first group of coordinates from among the second group.
+
+        See Also
+        --------
+        next_neighbor2
+        """
         return next_neighbor2(group1, group2, self.pbc, self.inv_pbc)
 
 def start_logging():
@@ -110,6 +188,10 @@ def log_git_version():
     logging.info("# Commit Date: {}".format(commit_date))
     logging.info("# Commit Message: {}".format(commit_message))
 
+def log_input(arg_list):
+    logging.info(" ".join(arg_list))
+    with open("misp_commands.txt", "a+") as mc:
+        mc.write(" ".join(arg_list) + "\n")
 
 def relative_pbc(coord, pbc_mat):
     inv_pbc_mat = np.linalg.inv(pbc_mat)
@@ -156,23 +238,40 @@ def wrap_trajectory(coord, pbc_mat):
 
 
 # Returns center of mass as array of dimensionality (timesteps, 3 spatial dimensions)
-def get_com(coord, atoms, pbc_mat):
-    for i in mass_dict.keys():
-        if mass_dict[i] == 0:
-            print("WARNING mass of " + i + " is equal to zero.")
-
+def get_com(coord, atoms):
     # Get atom masses from mass_dict and calculate weights for the com as the weighted average of all coordinates
-    mass_list = []
-    for atom_type in atoms:
-        mass_list.append(mass_dict[atom_type])
-    mges = sum(mass_list)
-    mass_weights = np.array(mass_list) / mges
+    mass_list = np.zeros(len(atoms), dtype = float)
+    for (i, atom_type) in enumerate(atoms):
+        mass_list[i] = atomic_mass(atom_type)
+    mges = np.sum(mass_list)
+    mass_weights = mass_list / mges
+
+    # Print warning if one of the elements has a mass of zero
+    for i in np.unique(atoms):
+        if np.all(mass_list[np.array(atoms) == i] == 0):
+            print("WARNING mass of " + i + " is equal to zero.")
 
     # Calculate com for each frame
     com = np.multiply(coord, mass_weights[np.newaxis, :, np.newaxis])
     com = np.sum(com, axis=1)
 
     return com
+
+def remove_com(coord, atoms, zero = True):
+    # Get atom masses from mass_dict and calculate weights for the com as the weighted average of all coordinates
+    com = get_com(coord, atoms)
+
+    # Set com to (0, 0, 0) if zero is true, otherwise keep com of first frame
+    if zero == True:
+        com_init = np.array([0.0, 0.0, 0.0])
+    else:
+        com_init = com[0]
+
+    # Subtract com from coord and return result
+    coord_com = coord - com[:, np.newaxis, :]
+    coord_com += com_init
+    return coord_com
+
 
 def limit_for_pbc_dist(pbc):
     cell_volume = np.linalg.det(pbc)
@@ -409,33 +508,6 @@ def next_neighbor2_triclinic(atom_1, atom_2, pbc_mat):
     listx=np.argmin(dist_list,axis=1)
     min_list = dist_list[np.arange(len(atom_1)),listx]
     return listx, min_list
-
-def remove_com(coord, atoms, zero = True):
-    # mass_dict is global now
-    for i in mass_dict.keys():
-        if mass_dict[i] == 0:
-            print("WARNING mass of " + i + " is equal to zero.")
-    # Get atom masses from mass_dict and calculate weights for the com as the weighted average of all coordinates
-    mass_list = []
-    for atom_type in atoms:
-        mass_list.append(mass_dict[atom_type])
-    mges = sum(mass_list)
-    mass_weights = np.array(mass_list) / mges
-
-    # Calculate com for each frame
-    com = np.multiply(coord, mass_weights[np.newaxis, :, np.newaxis])
-    com = np.sum(com, axis=1)
-
-    # Set com to (0, 0, 0) if zero is true, otherwise keep com of first frame
-    if zero == True:
-        com_init = np.array([0.0, 0.0, 0.0])
-    else:
-        com_init = com[0]
-
-    # Subtract com from coord and return result
-    coord_com = coord - com[:, np.newaxis, :]
-    coord_com += com_init
-    return coord_com
 
 
 def traj_to_ar(path):

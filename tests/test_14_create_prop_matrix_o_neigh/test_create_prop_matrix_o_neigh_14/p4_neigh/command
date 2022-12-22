@@ -1,0 +1,1 @@
+create_propagation_matrix  o_line_4p.xyz pbc False nowrap O --angle_atoms P
